@@ -1,0 +1,62 @@
+@page "/login"
+@layout AuthenticationLayout
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <MudCard Elevation="3" Class="pa-5">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Sign in</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTextField Label="Username or email" @bind-Value="model.Username" For="(() => model.Username)" />
+            <MudTextField Label="Password" @bind-Value="model.Password" For="(() => model.Password)" InputType="InputType.Password" />
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Sign in</MudButton>
+        </MudCardActions>
+    </MudCard>
+</EditForm>
+
+<MudText Typo="Typo.subtitle1" Class="mt-16 pa-5" Align="Align.Center">
+    Copyright &copy; Frosty Shadow @DateTime.UtcNow.Year
+</MudText>
+
+@code {
+    public class LoginForm
+    {
+        [Required]
+        public string Username {get;set;}
+        [Required]
+        public string Password {get;set;}
+    }
+
+    private LoginForm model = new LoginForm();
+    private string error;
+
+    protected override async void OnInitialized()
+    {
+        if (AuthenticationService.User != null)
+            NavigationManager.NavigateTo("/");
+    }
+
+    private void OnValidSubmit()
+    {
+        try
+        {
+            AuthenticationService.Login(model.Username, model.Password);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            Snackbar.Add(error, Severity.Error);
+            StateHasChanged();
+        }
+    }
+}

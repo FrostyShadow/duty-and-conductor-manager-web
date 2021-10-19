@@ -1,36 +1,26 @@
-﻿@inherits LayoutComponentBase
-<MudThemeProvider />
+@inherits LayoutComponentBase
+@inject ILocalStorageService LocalStorageService
+<MudThemeProvider Theme="@currentTheme" />
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        Conductor Duty Manager
+        <MudText Typo="Typo.h5" Class="ml-3">Conductor Duty Manager</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Brightness4" />
+        <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="DarkMode" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-        <NavMenu />
-    </MudDrawer>
     <MudMainContent>
-        <MudContainer Class="mt-5 pa-5" MaxWidth="MaxWidth.False">
+        <MudContainer Class="mt-5 pa-5" MaxWidth="MaxWidth.Small">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
+    protected override async void OnInitialized()
     {
-        _drawerOpen = !_drawerOpen;
-    }
-
-    protected override void OnInitialized()
-    {
-        currentTheme = defaultTheme;
+        currentTheme = (await LocalStorageService.GetItem<bool>("darkMode")) ? darkTheme : defaultTheme;
     }
 
     void DarkMode()
@@ -38,10 +28,12 @@
         if (currentTheme == defaultTheme)
         {
             currentTheme = darkTheme;
+            LocalStorageService.SetItem<bool>("darkMode", true);
         }
         else
         {
             currentTheme = defaultTheme;
+            LocalStorageService.SetItem<bool>("darkMode", false);
         }
     }
 

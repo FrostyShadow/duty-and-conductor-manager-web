@@ -1,0 +1,17 @@
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+
+<MudMenu Label="@_username" StartIcon="@Icons.Material.Filled.Person" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+    <MudMenuItem>Edycja profilu</MudMenuItem>
+    <MudMenuItem>Wyloguj się</MudMenuItem>
+</MudMenu>
+
+
+@code {
+    private string _username;
+
+    protected override async void OnInitialized()
+    {
+        _username = $"{AuthenticationService.User.FirstName} {AuthenticationService.User.LastName}";
+    }
+}
