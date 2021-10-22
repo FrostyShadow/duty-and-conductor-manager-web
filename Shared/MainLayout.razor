@@ -13,9 +13,14 @@
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
         <NavMenu />
     </MudDrawer>
-    <MudMainContent>
-        <MudContainer Class="mt-5 pa-5" MaxWidth="MaxWidth.False">
+    <MudMainContent Class="d-flex flex-column" Style="height: 100vh">
+        <MudContainer Class="mx-5 pa-5 align-self-center" MaxWidth="MaxWidth.Small">
             @Body
+        </MudContainer>
+        <MudContainer Class="mt-auto align-self-end">
+            <MudText Class="pa-5" Typo="Typo.subtitle1" Align="Align.Center">
+                Copyright &copy; Frosty Shadow @DateTime.UtcNow.Year
+            </MudText>
         </MudContainer>
     </MudMainContent>
 </MudLayout>
