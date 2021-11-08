@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
-<MudThemeProvider />
+@inject ILocalStorageService LocalStorageService
+<MudThemeProvider Theme="@currentTheme" />
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
@@ -8,13 +9,14 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         Conductor Duty Manager
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Brightness4" />
+        <MudIconButton Color="Color.Inherit" Icon="@Icons.Material.Filled.Brightness4" OnClick="(() => DarkMode())" />
+        <LoginDisplay />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
         <NavMenu />
     </MudDrawer>
     <MudMainContent Class="d-flex flex-column" Style="height: 100vh">
-        <MudContainer Class="mx-5 pa-5 align-self-center" MaxWidth="MaxWidth.Small">
+        <MudContainer Class="mx-5 pa-5 align-self-center" MaxWidth="MaxWidth.False">
             @Body
         </MudContainer>
         <MudContainer Class="mt-auto align-self-end">
@@ -27,15 +29,16 @@
 
 @code {
     bool _drawerOpen = true;
+    MudTheme currentTheme = new MudTheme();
 
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        currentTheme = defaultTheme;
+        currentTheme = (await LocalStorageService.GetItem<bool>("darkMode")) ? darkTheme : defaultTheme;
     }
 
     void DarkMode()
@@ -43,19 +46,24 @@
         if (currentTheme == defaultTheme)
         {
             currentTheme = darkTheme;
+            LocalStorageService.SetItem<bool>("darkMode", true);
         }
         else
         {
             currentTheme = defaultTheme;
+            LocalStorageService.SetItem<bool>("darkMode", false);
         }
     }
 
-    MudTheme currentTheme = new MudTheme();
     MudTheme defaultTheme = new MudTheme()
     {
         Palette = new Palette()
         {
-            Black = "#272c34"
+            Black = "#272c34",
+            Primary = "#0093c4",
+            PrimaryLighten = "#5bc3f7",
+            PrimaryDarken = "#006593",
+            AppbarBackground = "#0093c4"
         }
     };
 
@@ -82,7 +90,10 @@
             TableLines = "rgba(255,255,255, 0.12)",
             LinesDefault = "rgba(255,255,255, 0.12)",
             LinesInputs = "rgba(255,255,255, 0.3)",
-            TextDisabled = "rgba(255,255,255, 0.2)"
+            TextDisabled = "rgba(255,255,255, 0.2)",
+            Primary = "#4fc3f7",
+            PrimaryLighten = "#8bf6ff",
+            PrimaryDarken = "#0093c4"
         }
     };
 }

@@ -23,6 +23,8 @@
 </MudLayout>
 
 @code {
+    MudTheme currentTheme = new MudTheme();
+
     protected override async void OnInitialized()
     {
         currentTheme = (await LocalStorageService.GetItem<bool>("darkMode")) ? darkTheme : defaultTheme;
@@ -42,12 +44,15 @@
         }
     }
 
-    MudTheme currentTheme = new MudTheme();
     MudTheme defaultTheme = new MudTheme()
     {
         Palette = new Palette()
         {
-            Black = "#272c34"
+            Black = "#272c34",
+            Primary = "#4fc3f7",
+            PrimaryLighten = "#8bf6ff",
+            PrimaryDarken = "#0093c4",
+            AppbarBackground = "#0093c4"
         }
     };
 
@@ -74,7 +79,10 @@
             TableLines = "rgba(255,255,255, 0.12)",
             LinesDefault = "rgba(255,255,255, 0.12)",
             LinesInputs = "rgba(255,255,255, 0.3)",
-            TextDisabled = "rgba(255,255,255, 0.2)"
+            TextDisabled = "rgba(255,255,255, 0.2)",
+            Primary = "#4fc3f7",
+            PrimaryLighten = "#8bf6ff",
+            PrimaryDarken = "#0093c4"
         }
     };
 }
