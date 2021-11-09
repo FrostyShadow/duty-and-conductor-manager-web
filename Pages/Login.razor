@@ -4,6 +4,7 @@
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 
+
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
@@ -23,7 +24,6 @@
     </MudCard>
 </EditForm>
 
-
 @code {
     public class LoginForm
     {
@@ -42,12 +42,13 @@
             NavigationManager.NavigateTo("/");
     }
 
-    private void OnValidSubmit()
+    private async void OnValidSubmit()
     {
         try
         {
-            AuthenticationService.Login(model.Username, model.Password);
-            NavigationManager.NavigateTo("/");
+            await AuthenticationService.Login(model.Username, model.Password);
+            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "";
+            NavigationManager.NavigateTo(returnUrl);
         }
         catch (Exception ex)
         {
