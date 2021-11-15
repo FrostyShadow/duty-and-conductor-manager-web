@@ -1,0 +1,22 @@
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+
+<MudMenu Color="Color.Inherit" Label="@_username" StartIcon="@Icons.Material.Filled.Person" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+    <MudMenuItem>Edit profile</MudMenuItem>
+    <MudMenuItem OnClick="OnLogoutClick">Logout</MudMenuItem>
+</MudMenu>
+
+
+@code {
+    private string _username;
+
+    protected override async void OnInitialized()
+    {
+        _username = $"{AuthenticationService.User.FirstName} {AuthenticationService.User.LastName}";
+    }
+
+    private async void OnLogoutClick()
+    {
+        await AuthenticationService.Logout();
+    }
+}

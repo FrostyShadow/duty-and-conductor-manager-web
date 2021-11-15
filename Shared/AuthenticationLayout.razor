@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject ILocalStorageService LocalStorageService
 @inject IThemeLibrary ThemeLibrary
 <MudThemeProvider Theme="@currentTheme" />
@@ -7,17 +7,14 @@
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        Conductor Service Manager
+        <MudText Typo="Typo.h5" Class="ml-3">
+            Conductor Service Manager
+        </MudText>
         <MudSpacer />
-        <MudIconButton Color="Color.Inherit" Icon="@Icons.Material.Filled.Brightness4" OnClick="(() => DarkMode())" />
-        <LoginDisplay />
+        <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="DarkMode" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-        <NavMenu />
-    </MudDrawer>
     <MudMainContent Class="d-flex flex-column" Style="height: 100vh">
-        <MudContainer Class="mx-5 pa-5 align-self-center" MaxWidth="MaxWidth.False">
+        <MudContainer Class="mx-5 pa-5 align-self-center" MaxWidth="MaxWidth.Small">
             @Body
         </MudContainer>
         <MudContainer Class="mt-auto align-self-end">
@@ -29,13 +26,7 @@
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
     MudTheme currentTheme = new MudTheme();
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
 
     protected override async void OnInitialized()
     {
