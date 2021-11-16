@@ -1,5 +1,42 @@
 @page "/admin/user-list"
 @attribute [Authorize]
-
+@inject IAuthenticationService AuthenticationService
+@inject IHttpService HttpService
 
 <PageTitle>User list</PageTitle>
+
+<MudTable Items="@_users" Elevation="3" Striped="true" Hover="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">User list</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add">
+            New user
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>First name</MudTh>
+        <MudTh>Last name</MudTh>
+        <MudTh>Username</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="First name">@context.FirstName</MudTd>
+        <MudTd DataLabel="Last name">@context.LastName</MudTd>
+        <MudTd DataLabel="Username">@context.Username</MudTd>
+        <MudTd>
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Edit" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            No content to display
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code {
+    private IEnumerable<User> _users = new List<User>();
+}
