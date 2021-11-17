@@ -1,11 +1,9 @@
 @page "/admin/user-list"
 @attribute [Authorize]
-@inject IAuthenticationService AuthenticationService
-@inject IHttpService HttpService
 
 <PageTitle>User list</PageTitle>
 
-<MudTable Items="@_users" Elevation="3" Striped="true" Hover="true">
+<MudTable Items="@_users" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">User list</MudText>
         <MudSpacer />
@@ -18,6 +16,12 @@
         <MudTh>First name</MudTh>
         <MudTh>Last name</MudTh>
         <MudTh>Username</MudTh>
+        <MudTh>Email</MudTh>
+        <MudTh>Is active</MudTh>
+        <MudTh>Role</MudTh>
+        <MudTh>Birth date</MudTh>
+        <MudTh>Is trained</MudTh>
+        <MudTh>Phone number</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -25,9 +29,15 @@
         <MudTd DataLabel="First name">@context.FirstName</MudTd>
         <MudTd DataLabel="Last name">@context.LastName</MudTd>
         <MudTd DataLabel="Username">@context.Username</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="Is active">@(context.IsActive ? "Yes" : "No")</MudTd>
+        <MudTd DataLabel="Role">@context.Role.Name</MudTd>
+        <MudTd DataLabel="Birth date">@(context.BirthDate == null ? "N/A" : context.BirthDate)</MudTd>
+        <MudTd DataLabel="Is trained">@(context.IsTrained ? "Yes" : "No")</MudTd>
+        <MudTd DataLabel="Phone number">@(context.PhoneNumber ?? "N/A")</MudTd>
         <MudTd>
-            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Edit" />
-            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" />
         </MudTd>
     </RowTemplate>
     <NoRecordsContent>
@@ -39,4 +49,28 @@
 
 @code {
     private IEnumerable<User> _users = new List<User>();
+    private bool _isLoading = false;
+    
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _users = await UserService.GetAll();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
 }
