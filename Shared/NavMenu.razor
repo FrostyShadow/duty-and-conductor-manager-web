@@ -1,6 +1,9 @@
 ﻿<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
-    <MudNavGroup Title="Management" Icon="@Icons.Material.Filled.Settings">
-        <MudNavLink Href="/admin/user-list" Icon="@Icons.Material.Filled.People">User list</MudNavLink>
-    </MudNavGroup>
+    @if(AuthenticationService.User?.Role.Name == "Admin")
+    {
+        <MudNavGroup Title="Management" Icon="@Icons.Material.Filled.Settings">
+            <MudNavLink Href="/admin/user-list" Icon="@Icons.Material.Filled.People">User list</MudNavLink>
+        </MudNavGroup>
+    }
 </MudNavMenu>
