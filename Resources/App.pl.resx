@@ -145,4 +145,20 @@
     <value>Odzyskaj dostęp do swojego konta</value>
     <comment/>
   </data>
+  <data name="nav-link-dashboard" xml:space="preserve">
+    <value>Panel główny</value>
+    <comment/>
+  </data>
+  <data name="nav-group-management" xml:space="preserve">
+    <value>Zarządzanie</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-user-list" xml:space="preserve">
+    <value>Lista użytkowników</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-add-user" xml:space="preserve">
+    <value>Dodaj nowego użytkownika</value>
+    <comment/>
+  </data>
 </root>

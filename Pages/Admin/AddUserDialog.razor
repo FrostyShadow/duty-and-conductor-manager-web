@@ -1,0 +1,19 @@
+<MudDialog>
+    <TitleContent>
+        @Localizer["dialog-admin-add-user"]
+    </TitleContent>
+    <DialogContent>
+        <EditForm>
+            <DataAnnotationsValidator />
+
+
+        </EditForm>
+    </DialogContent>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+    
+}

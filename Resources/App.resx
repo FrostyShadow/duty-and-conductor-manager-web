@@ -145,4 +145,20 @@
     <value>Regain access to your account</value>
     <comment/>
   </data>
+  <data name="nav-link-dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="nav-group-management" xml:space="preserve">
+    <value>Management</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-user-list" xml:space="preserve">
+    <value>User list</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-add-user" xml:space="preserve">
+    <value>Add new user</value>
+    <comment/>
+  </data>
 </root>

@@ -30,6 +30,6 @@ public class UserService : IUserService
 
     public async Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime birthDate, bool isTrained, string phoneNumber)
     {
-        
+        await _httpService.Post<User>("/User/AddUser", new { firstName, lastName, username, email, roleId, birthDate, isTrained, phoneNumber });
     }
 }
