@@ -1,7 +1,7 @@
 @page "/login"
 @layout AuthenticationLayout
 
-<PageTitle>Sign in</PageTitle>
+<PageTitle>@Localizer["sign-in-title"]</PageTitle>
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -9,26 +9,26 @@
     <MudCard Elevation="3" Class="pa-5">
         <MudCardHeader>
             <CardHeaderContent>
-                <MudText Typo="Typo.h6">Sign in</MudText>
+                <MudText Typo="Typo.h6">@Localizer["sign-in-title"]</MudText>
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
-            <MudTextField Label="Username or email" @bind-Value="model.Username" For="(() => model.Username)" />
-            <MudTextField Label="Password" @bind-Value="model.Password" For="(() => model.Password)" InputType="InputType.Password" />
+            <MudTextField Label='@Localizer["sign-in-username-placeholder"]' @bind-Value="model.Username" For="(() => model.Username)" />
+            <MudTextField Label='@Localizer["sign-in-password-placeholder"]' @bind-Value="model.Password" For="(() => model.Password)" InputType="InputType.Password" />
         </MudCardContent>
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Sign in</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["sign-in-button"]</MudButton>
         </MudCardActions>
     </MudCard>
 
     <MudCard Elevation="3" Class="pa-5 mt-5">
         <MudCardHeader>
             <CardHeaderContent>
-                <MudText Typo="Typo.h6">Trouble accessing your account?</MudText>
+                <MudText Typo="Typo.h6">@Localizer["sign-in-forgot-question"]</MudText>
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary">Regain access to your account</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["sign-in-regain-access-button"]</MudButton>
         </MudCardActions>
     </MudCard>
 </EditForm>

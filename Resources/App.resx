@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="sign-in-title" xml:space="preserve">
+    <value>Sign in</value>
+    <comment/>
+  </data>
+  <data name="sign-in-button" xml:space="preserve">
+    <value>Sign in</value>
+    <comment/>
+  </data>
+  <data name="sign-in-username-placeholder" xml:space="preserve">
+    <value>Username or email</value>
+    <comment/>
+  </data>
+  <data name="sign-in-password-placeholder" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="app-name" xml:space="preserve">
+    <value>Conductor Service Manager</value>
+    <comment/>
+  </data>
+  <data name="sign-in-forgot-question" xml:space="preserve">
+    <value>Trouble accessing your account?</value>
+    <comment/>
+  </data>
+  <data name="sign-in-regain-access-button" xml:space="preserve">
+    <value>Regain access to your account</value>
+    <comment/>
+  </data>
 </root>

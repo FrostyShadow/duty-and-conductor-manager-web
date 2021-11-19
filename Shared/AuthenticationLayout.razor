@@ -8,10 +8,10 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudText Typo="Typo.h5" Class="ml-3">
-            Conductor Service Manager
+            @Localizer["app-name"]
         </MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Translate" Color="Color.Inherit" />
+        <MudIconButton Icon="@Icons.Material.Filled.Translate" Color="Color.Inherit" OnClick="SetLanguage" />
         <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="DarkMode" />
     </MudAppBar>
     <MudMainContent Class="d-flex flex-column" Style="height: 100vh">
@@ -32,7 +32,29 @@
     protected override async void OnInitialized()
     {
         currentTheme = (await LocalStorageService.GetItem<bool>("darkMode")) ? ThemeLibrary.DarkTheme : ThemeLibrary.LightTheme;
+        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo((await LocalStorageService.GetItem<string>("lang")) ?? "en");
+        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo((await LocalStorageService.GetItem<string>("lang")) ?? "en");
+        System.Console.WriteLine(CultureInfo.CurrentCulture.Name);
+        System.Console.WriteLine(CultureInfo.CurrentUICulture.Name);
         StateHasChanged();
+    }
+
+    void SetLanguage()
+    {
+        if (CultureInfo.CurrentCulture.Name == "en" || CultureInfo.CurrentUICulture.Name == "en")
+        {
+            CultureInfo.DefaultThreadCurrentCulture= new CultureInfo("pl");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("pl");
+            LocalStorageService.SetItem<string>("lang", "pl"); 
+        }
+        else
+        {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en");
+            LocalStorageService.SetItem<string>("lang", "en");
+        }
+        System.Console.WriteLine(CultureInfo.CurrentCulture.Name);
+        System.Console.WriteLine(CultureInfo.CurrentUICulture.Name);
     }
 
     void DarkMode()
