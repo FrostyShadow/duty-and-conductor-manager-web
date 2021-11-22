@@ -7,7 +7,7 @@
     <ToolBarContent>
         <MudText Typo="Typo.h6">User list</MudText>
         <MudSpacer />
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add">
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
             New user
         </MudButton>
     </ToolBarContent>
@@ -72,5 +72,10 @@
             _isLoading = false;
             StateHasChanged();
         }
+    }
+
+    private void OpenAddDialog()
+    {
+        DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
     }
 }

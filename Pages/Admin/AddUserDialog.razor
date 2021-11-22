@@ -1,19 +1,45 @@
-<MudDialog>
-    <TitleContent>
-        @Localizer["dialog-admin-add-user"]
-    </TitleContent>
-    <DialogContent>
-        <EditForm>
-            <DataAnnotationsValidator />
-
-
-        </EditForm>
-    </DialogContent>
-</MudDialog>
+<EditForm Model="@model">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+                <div class="d-flex flex-column py-1">
+                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-first-name"]' @bind-Value="model.FirstName" For="(() => model.FirstName)" />
+                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-last-name"]' @bind-Value="model.LastName" For="(() => model.LastName)" />
+                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-username"]' @bind-Value="model.Username" For="(() => model.Username)" />
+                    <MudTextField InputType="InputType.Email" Label='@Localizer["label-admin-add-user-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
+                    <MudDatePicker Label='@Localizer["label-admin-add-user-birth-date"]' @bind-Date="model.BirthDate" DateFormat="yyyy-MM-dd" />
+                    <MudCheckBox Label='@Localizer["label-admin-add-user-is-trained"]' @bind-Checked="model.IsTrained" />
+                    <MudTextField InputType="InputType.Telephone" Label='@Localizer["label-admin-add-user-phone-number"]' @bind-Value="model.PhoneNumber" For="(() => model.PhoneNumber)" />
+                </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-add-user-submit"]</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["button-admin-add-user-reset"]</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
 
 @code {
     [CascadingParameter]
     MudDialogInstance MudDialog {get;set;}
 
-    
+    public class AddUserForm
+    {
+        [Required(ErrorMessageResourceName = "error_admin_add_user_first_name", ErrorMessageResourceType = typeof(Resources.App))]
+        public string FirstName {get;set;}
+        [Required(ErrorMessageResourceName = "error_admin_add_user_last_name", ErrorMessageResourceType = typeof(Resources.App))]
+        public string LastName {get;set;}
+        [Required(ErrorMessageResourceName = "error_admin_add_user_username", ErrorMessageResourceType = typeof(Resources.App))]
+        public string Username {get;set;}
+        [Required(ErrorMessageResourceName = "error_admin_add_user_email", ErrorMessageResourceType = typeof(Resources.App))]
+        public string Email {get;set;}
+        [Required(ErrorMessageResourceName = "error_admin_add_user_role", ErrorMessageResourceType = typeof(Resources.App))]
+        public int RoleId {get;set;}
+        [Required(ErrorMessageResourceName = "error_admin_add_user_birth_date", ErrorMessageResourceType = typeof(Resources.App))]
+        public DateTime? BirthDate {get;set;}
+        public bool IsTrained {get;set;}
+        public string? PhoneNumber {get;set;}
+    }
+
+    private AddUserForm model = new AddUserForm();
 }

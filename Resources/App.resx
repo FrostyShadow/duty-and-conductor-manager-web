@@ -161,4 +161,68 @@
     <value>Add new user</value>
     <comment/>
   </data>
+  <data name="label-admin-add-user-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-birth-date" xml:space="preserve">
+    <value>Birth date</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-submit" xml:space="preserve">
+    <value>Add user</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-reset" xml:space="preserve">
+    <value>Clear form</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-first-name" xml:space="preserve">
+    <value>First name is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-last-name" xml:space="preserve">
+    <value>Last name is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-username" xml:space="preserve">
+    <value>Username is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-email" xml:space="preserve">
+    <value>Email is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-role" xml:space="preserve">
+    <value>Role is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-birth-date" xml:space="preserve">
+    <value>Birth date is required</value>
+    <comment/>
+  </data>
+  <data name="test" xml:space="preserve">
+    <value>Test</value>
+    <comment/>
+  </data>
 </root>

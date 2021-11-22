@@ -161,4 +161,64 @@
     <value>Dodaj nowego użytkownika</value>
     <comment/>
   </data>
+  <data name="label-admin-add-user-first-name" xml:space="preserve">
+    <value>Imię</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-last-name" xml:space="preserve">
+    <value>Nazwisko</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-username" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-email" xml:space="preserve">
+    <value>Adres email</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-birth-date" xml:space="preserve">
+    <value>Data urodzenia</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-is-trained" xml:space="preserve">
+    <value>Czy przeszkolony?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-phone-number" xml:space="preserve">
+    <value>Numer telefonu</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-submit" xml:space="preserve">
+    <value>Dodaj użytkownika</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-reset" xml:space="preserve">
+    <value>Wyczyść formularz</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-first-name" xml:space="preserve">
+    <value>Imię jest wymagane</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-last-name" xml:space="preserve">
+    <value>Nazwisko jest wymagane</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-username" xml:space="preserve">
+    <value>Nazwa użytkownika jest wymagana</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-email" xml:space="preserve">
+    <value>Adres email jest wymagany</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-role" xml:space="preserve">
+    <value>Rola jest wymagana</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-birth-date" xml:space="preserve">
+    <value>Data urodzenia jest wymagana</value>
+    <comment/>
+  </data>
 </root>
