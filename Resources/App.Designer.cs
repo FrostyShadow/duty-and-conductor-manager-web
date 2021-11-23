@@ -85,6 +85,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New user.
+        /// </summary>
+        public static string button_admin_user_list_new_user {
+            get {
+                return ResourceManager.GetString("button-admin-user-list-new-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         public static string dialog_admin_add_user {
@@ -202,6 +211,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string label_admin_add_user_role {
+            get {
+                return ResourceManager.GetString("label-admin-add-user-role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string label_admin_add_user_username {
@@ -234,6 +252,15 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string nav_link_dashboard {
             get {
                 return ResourceManager.GetString("nav-link-dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User list.
+        /// </summary>
+        public static string page_title_admin_user_list {
+            get {
+                return ResourceManager.GetString("page-title-admin-user-list", resourceCulture);
             }
         }
         
@@ -292,11 +319,110 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test.
+        ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string test {
+        public static string text_global_no {
             get {
-                return ResourceManager.GetString("test", resourceCulture);
+                return ResourceManager.GetString("text-global-no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string text_global_yes {
+            get {
+                return ResourceManager.GetString("text-global-yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birth date.
+        /// </summary>
+        public static string th_admin_user_list_birth_date {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-birth-date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string th_admin_user_list_email {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string th_admin_user_list_first_name {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-first-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string th_admin_user_list_id {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is active?.
+        /// </summary>
+        public static string th_admin_user_list_is_active {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-is-active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is trained?.
+        /// </summary>
+        public static string th_admin_user_list_is_trained {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-is-trained", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string th_admin_user_list_last_name {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-last-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number.
+        /// </summary>
+        public static string th_admin_user_list_phone_number {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-phone-number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string th_admin_user_list_role {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string th_admin_user_list_username {
+            get {
+                return ResourceManager.GetString("th-admin-user-list-username", resourceCulture);
             }
         }
     }

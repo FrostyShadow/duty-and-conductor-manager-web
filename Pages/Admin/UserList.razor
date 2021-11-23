@@ -1,27 +1,27 @@
 @page "/admin/user-list"
 @attribute [Authorize]
 
-<PageTitle>User list</PageTitle>
+<PageTitle>@Localizer["page-title-admin-user-list"]</PageTitle>
 
 <MudTable Items="@_users" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">User list</MudText>
+        <MudText Typo="Typo.h6">@Localizer["page-title-admin-user-list"]</MudText>
         <MudSpacer />
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
-            New user
+            @Localizer["button-admin-user-list-new-user"]
         </MudButton>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>First name</MudTh>
-        <MudTh>Last name</MudTh>
-        <MudTh>Username</MudTh>
-        <MudTh>Email</MudTh>
-        <MudTh>Is active</MudTh>
-        <MudTh>Role</MudTh>
-        <MudTh>Birth date</MudTh>
-        <MudTh>Is trained</MudTh>
-        <MudTh>Phone number</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-id"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-first-name"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-last-name"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-username"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-email"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-is-active"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-role"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-birth-date"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-is-trained"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-phone-number"]</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -30,10 +30,10 @@
         <MudTd DataLabel="Last name">@context.LastName</MudTd>
         <MudTd DataLabel="Username">@context.Username</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
-        <MudTd DataLabel="Is active">@(context.IsActive ? "Yes" : "No")</MudTd>
+        <MudTd DataLabel="Is active">@(context.IsActive ? Localizer["text-global-yes"] : Localizer["text-global-no"])</MudTd>
         <MudTd DataLabel="Role">@context.Role.Name</MudTd>
-        <MudTd DataLabel="Birth date">@(context.BirthDate == null ? "N/A" : context.BirthDate)</MudTd>
-        <MudTd DataLabel="Is trained">@(context.IsTrained ? "Yes" : "No")</MudTd>
+        <MudTd DataLabel="Birth date">@(context.BirthDate == null ? "N/A" : $"{context.BirthDate:yyyy-MM-dd}")</MudTd>
+        <MudTd DataLabel="Is trained">@(context.IsTrained ? Localizer["text-global-yes"] : Localizer["text-global-no"])</MudTd>
         <MudTd DataLabel="Phone number">@(context.PhoneNumber ?? "N/A")</MudTd>
         <MudTd>
             <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" />
@@ -42,7 +42,7 @@
     </RowTemplate>
     <NoRecordsContent>
         <MudText Typo="Typo.body2">
-            No content to display
+            @Localizer["text-admin-user-list-no-records"]
         </MudText>
     </NoRecordsContent>
 </MudTable>
@@ -74,8 +74,12 @@
         }
     }
 
-    private void OpenAddDialog()
+    private async Task OpenAddDialog()
     {
-        DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialog = DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
     }
 }

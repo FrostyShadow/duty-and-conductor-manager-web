@@ -221,8 +221,64 @@
     <value>Birth date is required</value>
     <comment/>
   </data>
-  <data name="test" xml:space="preserve">
-    <value>Test</value>
+  <data name="label-admin-add-user-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="page-title-admin-user-list" xml:space="preserve">
+    <value>User list</value>
+    <comment/>
+  </data>
+  <data name="button-admin-user-list-new-user" xml:space="preserve">
+    <value>New user</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-is-active" xml:space="preserve">
+    <value>Is active?</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-birth-date" xml:space="preserve">
+    <value>Birth date</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="text-global-yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment/>
+  </data>
+  <data name="text-global-no" xml:space="preserve">
+    <value>No</value>
     <comment/>
   </data>
 </root>

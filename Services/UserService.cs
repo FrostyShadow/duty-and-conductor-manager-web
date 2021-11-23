@@ -6,7 +6,7 @@ public interface IUserService
 {
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
-    Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime birthDate, bool isTrained, string phoneNumber);
+    Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber);
 }
 
 public class UserService : IUserService
@@ -28,7 +28,7 @@ public class UserService : IUserService
         return await _httpService.Get<User>($"/User/GetById?id={id}");
     }
 
-    public async Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime birthDate, bool isTrained, string phoneNumber)
+    public async Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber)
     {
         await _httpService.Post<User>("/User/AddUser", new { firstName, lastName, username, email, roleId, birthDate, isTrained, phoneNumber });
     }

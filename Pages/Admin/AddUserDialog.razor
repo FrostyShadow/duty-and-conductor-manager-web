@@ -1,4 +1,4 @@
-<EditForm Model="@model">
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <MudDialog>
         <DialogContent>
@@ -7,6 +7,12 @@
                     <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-last-name"]' @bind-Value="model.LastName" For="(() => model.LastName)" />
                     <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-username"]' @bind-Value="model.Username" For="(() => model.Username)" />
                     <MudTextField InputType="InputType.Email" Label='@Localizer["label-admin-add-user-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
+                    <MudSelect T="int?" Label='@Localizer["label-admin-add-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.RoleId" For="(() => model.RoleId)">
+                        @foreach(var role in roles)
+                        {
+                            <MudSelectItem T="int?" Value="@role.Id">@role.Name</MudSelectItem>
+                        }
+                    </MudSelect>
                     <MudDatePicker Label='@Localizer["label-admin-add-user-birth-date"]' @bind-Date="model.BirthDate" DateFormat="yyyy-MM-dd" />
                     <MudCheckBox Label='@Localizer["label-admin-add-user-is-trained"]' @bind-Checked="model.IsTrained" />
                     <MudTextField InputType="InputType.Telephone" Label='@Localizer["label-admin-add-user-phone-number"]' @bind-Value="model.PhoneNumber" For="(() => model.PhoneNumber)" />
@@ -34,7 +40,7 @@
         [Required(ErrorMessageResourceName = "error_admin_add_user_email", ErrorMessageResourceType = typeof(Resources.App))]
         public string Email {get;set;}
         [Required(ErrorMessageResourceName = "error_admin_add_user_role", ErrorMessageResourceType = typeof(Resources.App))]
-        public int RoleId {get;set;}
+        public int? RoleId {get;set;}
         [Required(ErrorMessageResourceName = "error_admin_add_user_birth_date", ErrorMessageResourceType = typeof(Resources.App))]
         public DateTime? BirthDate {get;set;}
         public bool IsTrained {get;set;}
@@ -42,4 +48,32 @@
     }
 
     private AddUserForm model = new AddUserForm();
+
+    private IEnumerable<Role> roles = new List<Role>();
+
+    protected override async void OnInitialized()
+    {
+        GetRoles();
+        StateHasChanged();
+    }
+
+    private async void GetRoles()
+    {
+        roles = await RoleService.GetAll();
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await UserService.AddUser(model.FirstName, model.LastName, model.Username, model.Email, (int) model.RoleId, model.BirthDate, model.IsTrained, model.PhoneNumber);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
 }
