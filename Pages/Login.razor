@@ -1,7 +1,7 @@
 @page "/login"
 @layout AuthenticationLayout
 
-<PageTitle>@Localizer["sign-in-title"]</PageTitle>
+<PageTitle>@Localizer["page-title-sign-in"]</PageTitle>
 
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -9,26 +9,16 @@
     <MudCard Elevation="3" Class="pa-5">
         <MudCardHeader>
             <CardHeaderContent>
-                <MudText Typo="Typo.h6">@Localizer["sign-in-title"]</MudText>
+                <MudText Typo="Typo.h6">@Localizer["page-title-sign-in"]</MudText>
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
-            <MudTextField Label='@Localizer["sign-in-username-placeholder"]' @bind-Value="model.Username" For="(() => model.Username)" />
-            <MudTextField Label='@Localizer["sign-in-password-placeholder"]' @bind-Value="model.Password" For="(() => model.Password)" InputType="InputType.Password" />
+            <MudTextField Label='@Localizer["label-sign-in-username"]' @bind-Value="model.Username" For="(() => model.Username)" />
+            <MudTextField Label='@Localizer["label-sign-in-password"]' @bind-Value="model.Password" For="(() => model.Password)" InputType="InputType.Password" />
         </MudCardContent>
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["sign-in-button"]</MudButton>
-        </MudCardActions>
-    </MudCard>
-
-    <MudCard Elevation="3" Class="pa-5 mt-5">
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h6">@Localizer["sign-in-forgot-question"]</MudText>
-            </CardHeaderContent>
-        </MudCardHeader>
-        <MudCardActions>
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["sign-in-regain-access-button"]</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-sign-in-submit"]</MudButton>
+            <MudButton Class="ml-1" ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnForgotClick">@Localizer["button-sign-in-forgot-password"]</MudButton>
         </MudCardActions>
     </MudCard>
 </EditForm>
@@ -36,9 +26,9 @@
 @code {
     public class LoginForm
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "error_sign_in_username", ErrorMessageResourceType = typeof(Resources.App))]
         public string Username {get;set;}
-        [Required]
+        [Required(ErrorMessageResourceName = "error_sign_in_password", ErrorMessageResourceType = typeof(Resources.App))]
         public string Password {get;set;}
     }
 
@@ -65,5 +55,10 @@
             Snackbar.Add(error, Severity.Error);
             StateHasChanged();
         }
+    }
+
+    private void OnForgotClick()
+    {
+        DialogService.Show<ForgotDialog>(Localizer["dialog-forgot-password"], new DialogOptions { MaxWidth = MaxWidth.Medium, FullWidth = true });
     }
 }

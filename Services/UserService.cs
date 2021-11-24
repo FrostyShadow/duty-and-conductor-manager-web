@@ -4,6 +4,8 @@ namespace DutyAndConductorManager.Web.Services;
 
 public interface IUserService
 {
+    Task<Guid> Activate(int id, Guid token);
+    Task SetPassword(int id, Guid token, string password);
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
     Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber);
@@ -16,6 +18,16 @@ public class UserService : IUserService
     public UserService(IHttpService httpService)
     {
         _httpService = httpService;
+    }
+
+    public async Task<Guid> Activate(int id, Guid token)
+    {
+        return await _httpService.Post<Guid>("/User/Activate", new { id, token });
+    }
+
+    public async Task SetPassword(int id, Guid token, string password)
+    {
+        await _httpService.Post<bool>("/User/SetPassword", new { id, token, password });
     }
 
     public async Task<IEnumerable<User>> GetAll()

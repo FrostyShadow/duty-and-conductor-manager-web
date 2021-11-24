@@ -1,0 +1,49 @@
+@inject IJSRuntime JSRuntime
+@inject ILocalStorageService LocalStorageService
+
+<MudMenu Icon="@Icons.Material.Filled.Translate" Color="Color.Inherit">
+    @foreach (var lang in SupportedLanguages)
+    {
+        <MudMenuItem OnClick="(() => SwitchLanguage(lang.Culture))">@lang.DisplayName</MudMenuItem>
+    }
+</MudMenu>
+
+@code{
+
+    public class LanguageCode
+    {
+        public CultureInfo Culture {get;set;}
+        public string DisplayName {get;set;}
+
+        public LanguageCode(CultureInfo culture, string displayName)
+        {
+            Culture = culture;
+            DisplayName = displayName;
+        }
+    }
+    private IEnumerable<LanguageCode> SupportedLanguages = new List<LanguageCode>
+    {
+        new LanguageCode(new CultureInfo("pl"), "Polski"),
+        new LanguageCode(new CultureInfo("en"), "English")
+    };
+
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var js = (IJSInProcessRuntime) JSRuntime;
+                js.InvokeVoid("blazorCulture.set", value.Name);
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, true);
+            }
+        }
+    }
+
+    private void SwitchLanguage(CultureInfo culture)
+    {
+        Culture = culture;
+    }
+}

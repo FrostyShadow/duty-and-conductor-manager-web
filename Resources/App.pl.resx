@@ -117,19 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="sign-in-title" xml:space="preserve">
+  <data name="page-title-sign-in" xml:space="preserve">
     <value>Logowanie</value>
     <comment/>
   </data>
-  <data name="sign-in-button" xml:space="preserve">
+  <data name="button-sign-in-submit" xml:space="preserve">
     <value>Zaloguj się</value>
     <comment/>
   </data>
-  <data name="sign-in-username-placeholder" xml:space="preserve">
+  <data name="label-sign-in-username" xml:space="preserve">
     <value>Nazwa użytkownika lub email</value>
     <comment/>
   </data>
-  <data name="sign-in-password-placeholder" xml:space="preserve">
+  <data name="label-sign-in-password" xml:space="preserve">
     <value>Hasło</value>
     <comment/>
   </data>
@@ -137,12 +137,8 @@
     <value>Menedżer Służb Konduktorskich</value>
     <comment/>
   </data>
-  <data name="sign-in-forgot-question" xml:space="preserve">
-    <value>Problem z dostępem do konta?</value>
-    <comment/>
-  </data>
-  <data name="sign-in-regain-access-button" xml:space="preserve">
-    <value>Odzyskaj dostęp do swojego konta</value>
+  <data name="button-sign-in-forgot-password" xml:space="preserve">
+    <value>Zapomniałem hasła</value>
     <comment/>
   </data>
   <data name="nav-link-dashboard" xml:space="preserve">
@@ -279,6 +275,30 @@
   </data>
   <data name="text-global-no" xml:space="preserve">
     <value>Nie</value>
+    <comment/>
+  </data>
+  <data name="error-sign-in-username" xml:space="preserve">
+    <value>Nazwa użytkownika jest wymagana</value>
+    <comment/>
+  </data>
+  <data name="error-sign-in-password" xml:space="preserve">
+    <value>Hasło jest wymagane</value>
+    <comment/>
+  </data>
+  <data name="label-forgot-password-email" xml:space="preserve">
+    <value>Adres email</value>
+    <comment/>
+  </data>
+  <data name="button-forgot-password-submit" xml:space="preserve">
+    <value>Kontynuuj</value>
+    <comment/>
+  </data>
+  <data name="error-forgot-password-email" xml:space="preserve">
+    <value>Adres email jest wymagany</value>
+    <comment/>
+  </data>
+  <data name="dialog-forgot-password" xml:space="preserve">
+    <value>Zapomniałem hasła</value>
     <comment/>
   </data>
 </root>

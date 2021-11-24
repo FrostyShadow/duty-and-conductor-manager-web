@@ -2,21 +2,21 @@
     <DataAnnotationsValidator />
     <MudDialog>
         <DialogContent>
-                <div class="d-flex flex-column py-1">
-                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-first-name"]' @bind-Value="model.FirstName" For="(() => model.FirstName)" />
-                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-last-name"]' @bind-Value="model.LastName" For="(() => model.LastName)" />
-                    <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-username"]' @bind-Value="model.Username" For="(() => model.Username)" />
-                    <MudTextField InputType="InputType.Email" Label='@Localizer["label-admin-add-user-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
-                    <MudSelect T="int?" Label='@Localizer["label-admin-add-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.RoleId" For="(() => model.RoleId)">
-                        @foreach(var role in roles)
-                        {
-                            <MudSelectItem T="int?" Value="@role.Id">@role.Name</MudSelectItem>
-                        }
-                    </MudSelect>
-                    <MudDatePicker Label='@Localizer["label-admin-add-user-birth-date"]' @bind-Date="model.BirthDate" DateFormat="yyyy-MM-dd" />
-                    <MudCheckBox Label='@Localizer["label-admin-add-user-is-trained"]' @bind-Checked="model.IsTrained" />
-                    <MudTextField InputType="InputType.Telephone" Label='@Localizer["label-admin-add-user-phone-number"]' @bind-Value="model.PhoneNumber" For="(() => model.PhoneNumber)" />
-                </div>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-first-name"]' @bind-Value="model.FirstName" For="(() => model.FirstName)" />
+                <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-last-name"]' @bind-Value="model.LastName" For="(() => model.LastName)" />
+                <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-add-user-username"]' @bind-Value="model.Username" For="(() => model.Username)" />
+                <MudTextField InputType="InputType.Email" Label='@Localizer["label-admin-add-user-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
+                <MudSelect T="int?" Label='@Localizer["label-admin-add-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.RoleId" For="(() => model.RoleId)">
+                    @foreach(var role in roles)
+                    {
+                        <MudSelectItem T="int?" Value="@role.Id">@role.Name</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudDatePicker Label='@Localizer["label-admin-add-user-birth-date"]' @bind-Date="model.BirthDate" DateFormat="yyyy-MM-dd" />
+                <MudCheckBox Label='@Localizer["label-admin-add-user-is-trained"]' @bind-Checked="model.IsTrained" />
+                <MudTextField InputType="InputType.Telephone" Label='@Localizer["label-admin-add-user-phone-number"]' @bind-Value="model.PhoneNumber" For="(() => model.PhoneNumber)" />
+            </div>
         </DialogContent>
         <DialogActions>
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-add-user-submit"]</MudButton>

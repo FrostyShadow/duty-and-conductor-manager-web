@@ -58,11 +58,29 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account activated successfully. Now you can set your password using the form below..
+        /// </summary>
+        public static string alert_activate_success {
+            get {
+                return ResourceManager.GetString("alert-activate-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conductor Service Manager.
         /// </summary>
         public static string app_name {
             get {
                 return ResourceManager.GetString("app-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string button_activate_submit {
+            get {
+                return ResourceManager.GetString("button-activate-submit", resourceCulture);
             }
         }
         
@@ -94,11 +112,83 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string button_forgot_password_submit {
+            get {
+                return ResourceManager.GetString("button-forgot-password-submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password.
+        /// </summary>
+        public static string button_sign_in_forgot_password {
+            get {
+                return ResourceManager.GetString("button-sign-in-forgot-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        public static string button_sign_in_submit {
+            get {
+                return ResourceManager.GetString("button-sign-in-submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         public static string dialog_admin_add_user {
             get {
                 return ResourceManager.GetString("dialog-admin-add-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot password.
+        /// </summary>
+        public static string dialog_forgot_password {
+            get {
+                return ResourceManager.GetString("dialog-forgot-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords don&apos;t match.
+        /// </summary>
+        public static string error_activate_compare_password {
+            get {
+                return ResourceManager.GetString("error-activate-compare-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        public static string error_activate_password {
+            get {
+                return ResourceManager.GetString("error-activate-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters long and contain 1 lowercase letter, 1 upper case letter, 1 special character and 1 numeric character.
+        /// </summary>
+        public static string error_activate_regex_password {
+            get {
+                return ResourceManager.GetString("error-activate-regex-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat password is required.
+        /// </summary>
+        public static string error_activate_repeat_password {
+            get {
+                return ResourceManager.GetString("error-activate-repeat-password", resourceCulture);
             }
         }
         
@@ -153,6 +243,51 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string error_admin_add_user_username {
             get {
                 return ResourceManager.GetString("error-admin-add-user-username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required.
+        /// </summary>
+        public static string error_forgot_password_email {
+            get {
+                return ResourceManager.GetString("error-forgot-password-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        public static string error_sign_in_password {
+            get {
+                return ResourceManager.GetString("error-sign-in-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username is required.
+        /// </summary>
+        public static string error_sign_in_username {
+            get {
+                return ResourceManager.GetString("error-sign-in-username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string label_activate_password {
+            get {
+                return ResourceManager.GetString("label-activate-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat password.
+        /// </summary>
+        public static string label_activate_repeat_password {
+            get {
+                return ResourceManager.GetString("label-activate-repeat-password", resourceCulture);
             }
         }
         
@@ -229,6 +364,33 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string label_forgot_password_email {
+            get {
+                return ResourceManager.GetString("label-forgot-password-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string label_sign_in_password {
+            get {
+                return ResourceManager.GetString("label-sign-in-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or email.
+        /// </summary>
+        public static string label_sign_in_username {
+            get {
+                return ResourceManager.GetString("label-sign-in-username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management.
         /// </summary>
         public static string nav_group_management {
@@ -267,54 +429,18 @@ namespace DutyAndConductorManager.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
-        public static string sign_in_button {
+        public static string page_title_sign_in {
             get {
-                return ResourceManager.GetString("sign-in-button", resourceCulture);
+                return ResourceManager.GetString("page-title-sign-in", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trouble accessing your account?.
+        ///   Looks up a localized string similar to Set password.
         /// </summary>
-        public static string sign_in_forgot_question {
+        public static string text_activate_set_password {
             get {
-                return ResourceManager.GetString("sign-in-forgot-question", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string sign_in_password_placeholder {
-            get {
-                return ResourceManager.GetString("sign-in-password-placeholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regain access to your account.
-        /// </summary>
-        public static string sign_in_regain_access_button {
-            get {
-                return ResourceManager.GetString("sign-in-regain-access-button", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign in.
-        /// </summary>
-        public static string sign_in_title {
-            get {
-                return ResourceManager.GetString("sign-in-title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Username or email.
-        /// </summary>
-        public static string sign_in_username_placeholder {
-            get {
-                return ResourceManager.GetString("sign-in-username-placeholder", resourceCulture);
+                return ResourceManager.GetString("text-activate-set-password", resourceCulture);
             }
         }
         

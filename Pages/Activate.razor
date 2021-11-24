@@ -1,0 +1,112 @@
+@page "/activate"
+@page "/activate/{Id:int}/{TokenString}"
+@layout AuthenticationLayout
+@attribute [AllowAnonymous]
+
+@if (isResponseReady)
+{
+    if (isSuccess)
+    {
+        <MudAlert Severity="Severity.Success" Variant="Variant.Filled">
+            @Localizer["alert-activate-success"]
+        </MudAlert>
+
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+
+            <MudCard Elevation="3">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            @Localizer["text-activate-set-password"]
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField InputType="InputType.Password" Label='@Localizer["label-activate-password"]' @bind-Value="model.Password" For="(() => model.Password)" />
+                    <MudTextField InputType="InputType.Password" Label='@Localizer["label-activate-repeat-password"]' @bind-Value="model.RepeatPassword" For="(() => model.RepeatPassword)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-activate-submit"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </EditForm>
+    }
+    else
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
+            @errorMessage
+        </MudAlert>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public int Id {get;set;}
+    [Parameter]
+    public string TokenString {get;set;}
+    public Guid Token 
+    {
+        get => Guid.Parse(TokenString);
+    }
+
+    public class ActivateSetPasswordForm
+    {
+        [Required(ErrorMessageResourceName = "error_activate_password", 
+            ErrorMessageResourceType = typeof(Resources.App))]
+        [RegularExpression("^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$",
+            ErrorMessageResourceName = "error_activate_regex_password", 
+            ErrorMessageResourceType = typeof(Resources.App))]
+        public string Password {get;set;}
+        [Required(ErrorMessageResourceName = "error_activate_repeat_password",
+            ErrorMessageResourceType = typeof(Resources.App))]
+        [Compare(nameof(Password), ErrorMessageResourceName = "error_activate_compare_password",
+            ErrorMessageResourceType = typeof(Resources.App))]
+        public string RepeatPassword {get;set;}
+    }
+
+    private ActivateSetPasswordForm model = new ActivateSetPasswordForm();
+
+    private bool isResponseReady = false;
+    private bool isSuccess = false;
+    private string errorMessage = string.Empty;
+    private Guid setPasswordToken;
+
+    protected override async void OnInitialized()
+    {
+        ActivateAccount();
+    }
+
+    private async void ActivateAccount()
+    {
+        try
+        {
+            setPasswordToken = await UserService.Activate(Id, Token);
+            isSuccess = true;
+            isResponseReady = true;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            isSuccess = false;
+            isResponseReady = true;
+            StateHasChanged();
+        }
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await UserService.SetPassword(Id, setPasswordToken, model.Password);
+            Snackbar.Add(@Localizer["alert-activate-set-password-success"], Severity.Success);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+    }
+}
