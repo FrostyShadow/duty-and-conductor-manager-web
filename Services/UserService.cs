@@ -5,6 +5,8 @@ namespace DutyAndConductorManager.Web.Services;
 public interface IUserService
 {
     Task<Guid> Activate(int id, Guid token);
+    Task<string> ForgotPassword(string email);
+    Task<Guid> PasswordReset(int id, Guid token);
     Task SetPassword(int id, Guid token, string password);
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
@@ -23,6 +25,16 @@ public class UserService : IUserService
     public async Task<Guid> Activate(int id, Guid token)
     {
         return await _httpService.Post<Guid>("/User/Activate", new { id, token });
+    }
+
+    public async Task<string> ForgotPassword(string email)
+    {
+        return await _httpService.Post<string>("/User/ForgotPassword", new { email });
+    }
+
+    public async Task<Guid> PasswordReset(int id, Guid token)
+    {
+        return await _httpService.Post<Guid>("/User/PasswordReset", new { id, token });
     }
 
     public async Task SetPassword(int id, Guid token, string password)

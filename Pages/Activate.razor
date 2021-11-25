@@ -1,5 +1,7 @@
 @page "/activate"
+@page "/forgot-password"
 @page "/activate/{Id:int}/{TokenString}"
+@page "/forgot-password/{Id:int}/{TokenString}"
 @layout AuthenticationLayout
 @attribute [AllowAnonymous]
 
@@ -8,7 +10,10 @@
     if (isSuccess)
     {
         <MudAlert Severity="Severity.Success" Variant="Variant.Filled">
-            @Localizer["alert-activate-success"]
+            @if(NavigationManager.Uri.Contains("/activate"))
+                @Localizer["alert-activate-success"]
+            else
+                @Localizer["alert-forgot-password-success"]
         </MudAlert>
 
         <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
@@ -38,6 +43,12 @@
             @errorMessage
         </MudAlert>
     }
+}
+else
+{
+    <MudOverlay Visible="true" DarkBackground="true" Absolute="true">
+        <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Indeterminate="true" />
+    </MudOverlay>
 }
 
 @code {
@@ -75,7 +86,28 @@
 
     protected override async void OnInitialized()
     {
-        ActivateAccount();
+        if(NavigationManager.Uri.Contains("/activate"))
+            ActivateAccount();
+        else
+            ForgotPassword();
+    }
+
+    private async void ForgotPassword()
+    {
+        try
+        {
+            setPasswordToken = await UserService.PasswordReset(Id, Token);
+            isSuccess = true;
+            isResponseReady = true;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            isSuccess = false;
+            isResponseReady = true;
+            StateHasChanged();
+        }
     }
 
     private async void ActivateAccount()

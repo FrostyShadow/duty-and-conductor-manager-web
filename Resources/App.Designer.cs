@@ -67,6 +67,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can now set your new password below..
+        /// </summary>
+        public static string alert_forgot_password_success {
+            get {
+                return ResourceManager.GetString("alert-forgot-password-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conductor Service Manager.
         /// </summary>
         public static string app_name {

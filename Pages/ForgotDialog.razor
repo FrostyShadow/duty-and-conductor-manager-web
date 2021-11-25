@@ -15,6 +15,10 @@
 
 
 @code {
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
     public class ForgotPasswordForm
     {
         [Required(ErrorMessageResourceName = "error_forgot_password_email", ErrorMessageResourceType = typeof(Resources.App))]
@@ -25,6 +29,16 @@
 
     private async void OnValidSubmit()
     {
-
+        try
+        {
+            var response = await UserService.ForgotPassword(model.Email);
+            MudDialog.Close();
+            Snackbar.Add(response, Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            MudDialog.Close();
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
     }
 }
