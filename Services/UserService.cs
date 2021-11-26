@@ -5,12 +5,13 @@ namespace DutyAndConductorManager.Web.Services;
 public interface IUserService
 {
     Task<Guid> Activate(int id, Guid token);
-    Task<string> ForgotPassword(string email);
+    Task ForgotPassword(string email);
     Task<Guid> PasswordReset(int id, Guid token);
     Task SetPassword(int id, Guid token, string password);
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
     Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber);
+    Task DeleteUser(int id);
 }
 
 public class UserService : IUserService
@@ -27,9 +28,9 @@ public class UserService : IUserService
         return await _httpService.Post<Guid>("/User/Activate", new { id, token });
     }
 
-    public async Task<string> ForgotPassword(string email)
+    public async Task ForgotPassword(string email)
     {
-        return await _httpService.Post<string>("/User/ForgotPassword", new { email });
+        await _httpService.Post<bool>("/User/ForgotPassword", new { email });
     }
 
     public async Task<Guid> PasswordReset(int id, Guid token)
@@ -55,5 +56,10 @@ public class UserService : IUserService
     public async Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber)
     {
         await _httpService.Post<User>("/User/AddUser", new { firstName, lastName, username, email, roleId, birthDate, isTrained, phoneNumber });
+    }
+
+    public async Task DeleteUser(int id)
+    {
+        await _httpService.Post<bool>("/User/DeleteUser", new { id });
     }
 }

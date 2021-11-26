@@ -37,7 +37,7 @@
         <MudTd DataLabel="Phone number">@(context.PhoneNumber ?? "N/A")</MudTd>
         <MudTd>
             <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" />
-            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
         </MudTd>
     </RowTemplate>
     <NoRecordsContent>
@@ -81,5 +81,25 @@
 
         if(!dialogResult.Cancelled)
             GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox(Localizer["title-admin-delete-user"], Localizer["message-admin-delete-user"], Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await UserService.DeleteUser(id);
+                Snackbar.Add(Localizer["snackbar-admin-delete-user-success"], Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
     }
 }

@@ -31,9 +31,9 @@
     {
         try
         {
-            var response = await UserService.ForgotPassword(model.Email);
+            await UserService.ForgotPassword(model.Email);
             MudDialog.Close();
-            Snackbar.Add(response, Severity.Success);
+            Snackbar.Add(@Localizer["snackbar-forgot-password-success"], Severity.Success);
         }
         catch (Exception ex)
         {
