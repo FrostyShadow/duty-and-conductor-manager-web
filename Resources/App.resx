@@ -126,7 +126,7 @@
     <comment/>
   </data>
   <data name="label-sign-in-username" xml:space="preserve">
-    <value>Username or email</value>
+    <value>Username</value>
     <comment/>
   </data>
   <data name="label-sign-in-password" xml:space="preserve">
