@@ -341,4 +341,36 @@
     <value>You can now set your new password below.</value>
     <comment/>
   </data>
+  <data name="label-admin-edit-user-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-is-active" xml:space="preserve">
+    <value>Is active?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-submit" xml:space="preserve">
+    <value>Save</value>
+    <comment/>
+  </data>
 </root>

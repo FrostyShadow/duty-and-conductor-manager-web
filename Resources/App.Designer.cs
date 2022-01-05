@@ -112,6 +112,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string button_admin_edit_submit {
+            get {
+                return ResourceManager.GetString("button-admin-edit-submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New user.
         /// </summary>
         public static string button_admin_user_list_new_user {
@@ -375,6 +384,69 @@ namespace DutyAndConductorManager.Web.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
+        public static string label_admin_edit_user_email {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string label_admin_edit_user_first_name {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-first-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is active?.
+        /// </summary>
+        public static string label_admin_edit_user_is_active {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-is-active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is trained?.
+        /// </summary>
+        public static string label_admin_edit_user_is_trained {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-is-trained", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string label_admin_edit_user_last_name {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-last-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number.
+        /// </summary>
+        public static string label_admin_edit_user_phone_number {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-phone-number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string label_admin_edit_user_role {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
         public static string label_forgot_password_email {
             get {
                 return ResourceManager.GetString("label-forgot-password-email", resourceCulture);
@@ -391,7 +463,7 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username or email.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string label_sign_in_username {
             get {

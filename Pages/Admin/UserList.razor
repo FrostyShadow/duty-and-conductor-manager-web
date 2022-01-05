@@ -36,8 +36,8 @@
         <MudTd DataLabel="Is trained">@(context.IsTrained ? Localizer["text-global-yes"] : Localizer["text-global-no"])</MudTd>
         <MudTd DataLabel="Phone number">@(context.PhoneNumber ?? "N/A")</MudTd>
         <MudTd>
-            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" />
-            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Disabled="(context.Id == AuthenticationService.User.Id)" ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
         </MudTd>
     </RowTemplate>
     <NoRecordsContent>
@@ -77,6 +77,15 @@
     private async Task OpenAddDialog()
     {
         var dialog = DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditUserDialog>(Localizer["dialog-admin-add-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
         var dialogResult = await dialog.Result;
 
         if(!dialogResult.Cancelled)
