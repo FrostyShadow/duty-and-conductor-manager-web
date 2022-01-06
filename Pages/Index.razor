@@ -16,20 +16,9 @@
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
-                <MudGrid>
-                    <Announcement 
-                        FirstName="Test" 
-                        LastName="Admin" 
-                        PublishDate="@(new DateTime(2021,11,8,14,00,00))" 
-                        Type="AnnouncementType.Info" 
-                        AnnouncementBody="This is a test info announcement!"  />
-                    <Announcement 
-                        FirstName="Test" 
-                        LastName="Admin" 
-                        PublishDate="@(new DateTime(2021,11,8,13,00,00))" 
-                        Type="AnnouncementType.Important" 
-                        AnnouncementBody="This is a test important announcement!"  />
-                </MudGrid>
+                <MudText Typo="Typo.body2">
+                    No announcements to display
+                </MudText>
             </MudCardContent>
         </MudCard>
     </MudItem>
@@ -37,14 +26,19 @@
         <MudCard>
             <MudCardHeader>
                 <MudText Typo="Typo.h6">
-                    Upcomming shifts
+                    Upcoming shifts
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
                 <MudText Typo="Typo.body2">
-                    No upcomming shifts
+                    No upcoming shifts
                 </MudText>
             </MudCardContent>
         </MudCard>
     </MudItem>
 </MudGrid>
+
+
+@code {
+
+}
