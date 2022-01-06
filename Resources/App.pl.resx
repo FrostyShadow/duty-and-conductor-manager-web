@@ -301,4 +301,28 @@
     <value>Zapomniałem hasła</value>
     <comment/>
   </data>
+  <data name="snackbar-activate-set-password-success" xml:space="preserve">
+    <value>Ustawianie hasła zakończone sukcesem. Może się zalogować do swojego konta.</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-add-user-success" xml:space="preserve">
+    <value>Użytkownik utworzony poprawnie</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-user-error-user-data" xml:space="preserve">
+    <value>Wystąpił błąd w trakcie pobierania danych użytkownika</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-success" xml:space="preserve">
+    <value>Dane użytkownika zapisane poprawnie</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-password" xml:space="preserve">
+    <value>Hasło</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-edit-user" xml:space="preserve">
+    <value>Edycja użytkownika</value>
+    <comment/>
+  </data>
 </root>

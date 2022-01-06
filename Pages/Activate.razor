@@ -133,7 +133,7 @@ else
         try
         {
             await UserService.SetPassword(Id, setPasswordToken, model.Password);
-            Snackbar.Add(@Localizer["alert-activate-set-password-success"], Severity.Success);
+            Snackbar.Add(@Localizer["snackbar-activate-set-password-success"], Severity.Success);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception ex)

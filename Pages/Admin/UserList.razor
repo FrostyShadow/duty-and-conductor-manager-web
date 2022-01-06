@@ -85,7 +85,7 @@
 
     private async Task OpenEditDialog(int id)
     {
-        var dialog = DialogService.Show<EditUserDialog>(Localizer["dialog-admin-add-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialog = DialogService.Show<EditUserDialog>(Localizer["dialog-admin-edit-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
         var dialogResult = await dialog.Result;
 
         if(!dialogResult.Cancelled)

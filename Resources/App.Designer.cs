@@ -112,6 +112,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string button_admin_edit_close {
+            get {
+                return ResourceManager.GetString("button-admin-edit-close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string button_admin_edit_submit {
@@ -162,6 +171,15 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string dialog_admin_add_user {
             get {
                 return ResourceManager.GetString("dialog-admin-add-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit user.
+        /// </summary>
+        public static string dialog_admin_edit_user {
+            get {
+                return ResourceManager.GetString("dialog-admin-edit-user", resourceCulture);
             }
         }
         
@@ -427,6 +445,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string label_admin_edit_user_password {
+            get {
+                return ResourceManager.GetString("label-admin-edit-user-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone number.
         /// </summary>
         public static string label_admin_edit_user_phone_number {
@@ -513,6 +540,42 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string page_title_sign_in {
             get {
                 return ResourceManager.GetString("page-title-sign-in", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password set successfully. You can now sign in to your account..
+        /// </summary>
+        public static string snackbar_activate_set_password_success {
+            get {
+                return ResourceManager.GetString("snackbar-activate-set-password-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User created successfully.
+        /// </summary>
+        public static string snackbar_admin_add_user_success {
+            get {
+                return ResourceManager.GetString("snackbar-admin-add-user-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User data saved successfully.
+        /// </summary>
+        public static string snackbar_admin_edit_success {
+            get {
+                return ResourceManager.GetString("snackbar-admin-edit-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured while trying to fetch user data.
+        /// </summary>
+        public static string snackbar_admin_edit_user_error_user_data {
+            get {
+                return ResourceManager.GetString("snackbar-admin-edit-user-error-user-data", resourceCulture);
             }
         }
         

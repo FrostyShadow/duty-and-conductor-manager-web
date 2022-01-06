@@ -373,4 +373,32 @@
     <value>Save</value>
     <comment/>
   </data>
+  <data name="snackbar-activate-set-password-success" xml:space="preserve">
+    <value>Password set successfully. You can now sign in to your account.</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-close" xml:space="preserve">
+    <value>Close</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-add-user-success" xml:space="preserve">
+    <value>User created successfully</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-user-error-user-data" xml:space="preserve">
+    <value>Error occured while trying to fetch user data</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-success" xml:space="preserve">
+    <value>User data saved successfully</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-password" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-edit-user" xml:space="preserve">
+    <value>Edit user</value>
+    <comment/>
+  </data>
 </root>

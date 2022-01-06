@@ -1,4 +1,4 @@
-<EditForm Model="@model">
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
 
     <MudDialog>
@@ -7,19 +7,24 @@
                 <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-edit-user-first-name"]' @bind-Value="model.FirstName" For="(() => model.FirstName)" />
                 <MudTextField InputType="InputType.Text" Label='@Localizer["label-admin-edit-user-last-name"]' @bind-Value="model.LastName" For="(() => model.LastName)" />
                 <MudTextField InputType="InputType.Email" Label='@Localizer["label-admin-edit-user-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
-                <MudSelect T="int?" Label='@Localizer["label-admin-edit-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.RoleId"  For="(() => model.RoleId)">
-                    @foreach(var role in roles)
-                    {
-                        <MudSelectItem T="int?" Value="@role.Id">@role.Name</MudSelectItem>
-                    }
-                </MudSelect>
-                <MudCheckBox Label='@Localizer["label-admin-edit-user-is-active"]' @bind-Checked="model.IsActive" />
-                <MudCheckBox Label='@Localizer["label-admin-edit-user-is-trained"]' @bind-Checked="model.IsTrained" />
+                <MudTextField InputType="InputType.Password" Label='@Localizer["label-admin-edit-user-password"]' @bind-Value="model.Password" For="(() => model.Password)" />
+                @if (model.IsAdminEdit)
+                {
+                    <MudSelect T="int?" Label='@Localizer["label-admin-edit-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.RoleId"  For="(() => model.RoleId)">
+                        @foreach(var role in roles)
+                        {
+                            <MudSelectItem T="int?" Value="@role.Id">@role.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudCheckBox Label='@Localizer["label-admin-edit-user-is-active"]' @bind-Checked="model.IsActive" />
+                    <MudCheckBox Label='@Localizer["label-admin-edit-user-is-trained"]' @bind-Checked="model.IsTrained" />
+                }
                 <MudTextField InputType="InputType.Telephone" Label='@Localizer["label-admin-edit-user-phone-number"]' @bind-Value="model.PhoneNumber" For="(() => model.PhoneNumber)" />
             </div>
         </DialogContent>
         <DialogActions>
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-edit-submit"]</MudButton>
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnCloseClick">@Localizer["button-admin-edit-close"]</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>
@@ -36,6 +41,9 @@
         public int Id {get;set;}
         public string? FirstName {get;set;}
         public string? LastName {get;set;}
+        [RegularExpression("^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$",
+            ErrorMessageResourceName = "error_activate_regex_password", 
+            ErrorMessageResourceType = typeof(Resources.App))]
         public string? Password {get;set;}
         public string? Email {get;set;}
         public bool IsActive {get;set;}
@@ -84,10 +92,30 @@
             IsTrained = user.IsTrained,
             PhoneNumber = user.PhoneNumber,
             Photo = user.Photo,
-            IsAdminEdit = true,
+            IsAdminEdit = user.Id != AuthenticationService.User.Id,
             EditingUserId = AuthenticationService.User.Id
         };
 
         StateHasChanged();
+    }
+
+    public async void OnValidSubmit()
+    {
+        try
+        {
+            await UserService.EditUser(model.Id, model.FirstName, model.LastName, model.Password, model.Email, model.IsActive, model.RoleId, model.IsTrained, model.PhoneNumber, model.Photo, model.IsAdminEdit, model.EditingUserId);
+            Snackbar.Add(Localizer["snackbar-admin-edit-success"], Severity.Success);
+            MudDialog.Close();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Close();
+        }
+    }
+
+    private async void OnCloseClick()
+    {
+        MudDialog.Close();
     }
 }

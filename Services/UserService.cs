@@ -11,6 +11,7 @@ public interface IUserService
     Task<IEnumerable<User>> GetAll();
     Task<User> GetById(int id);
     Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber);
+    Task EditUser(int id, string? firstName, string? lastName, string? password, string? email, bool isActive, int? roleId, bool isTrained, string? phoneNumber, string? photo, bool isAdminEdit, int editingUserId);
     Task DeleteUser(int id);
 }
 
@@ -56,6 +57,11 @@ public class UserService : IUserService
     public async Task AddUser(string firstName, string lastName, string username, string email, int roleId, DateTime? birthDate, bool isTrained, string phoneNumber)
     {
         await _httpService.Post<User>("/User/AddUser", new { firstName, lastName, username, email, roleId, birthDate, isTrained, phoneNumber });
+    }
+
+    public async Task EditUser(int id, string? firstName, string? lastName, string? password, string? email, bool isActive, int? roleId, bool isTrained, string? phoneNumber, string? photo, bool isAdminEdit, int editingUserId)
+    {
+        await _httpService.Post<bool>("/User/EditUser", new { id, firstName, lastName, password, email, isActive, roleId, isTrained, phoneNumber, photo, isAdminEdit, editingUserId });
     }
 
     public async Task DeleteUser(int id)
