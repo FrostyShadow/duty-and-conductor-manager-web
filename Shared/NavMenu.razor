@@ -1,3 +1,9 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">@Localizer["nav-link-dashboard"]</MudNavLink>
+    @if(AuthenticationService.User?.Role.Name == "Admin")
+    {
+        <MudNavGroup Title='@Localizer["nav-group-management"]' Icon="@Icons.Material.Filled.Settings">
+            <MudNavLink Href="/admin/user-list" Icon="@Icons.Material.Filled.People">@Localizer["nav-link-admin-user-list"]</MudNavLink>
+        </MudNavGroup>
+    }
 </MudNavMenu>

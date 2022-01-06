@@ -1,0 +1,44 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <MudDialog>
+        <DialogContent>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Email" Label='@Localizer["label-forgot-password-email"]' @bind-Value="model.Email" For="(() => model.Email)" />
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-forgot-password-submit"]</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+
+@code {
+
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+    public class ForgotPasswordForm
+    {
+        [Required(ErrorMessageResourceName = "error_forgot_password_email", ErrorMessageResourceType = typeof(Resources.App))]
+        public string Email {get;set;}
+    }
+
+    private ForgotPasswordForm model = new ForgotPasswordForm();
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await UserService.ForgotPassword(model.Email);
+            MudDialog.Close();
+            Snackbar.Add(@Localizer["snackbar-forgot-password-success"], Severity.Success);
+        }
+        catch (Exception ex)
+        {
+            MudDialog.Close();
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+    }
+}

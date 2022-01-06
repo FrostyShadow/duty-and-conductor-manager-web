@@ -1,0 +1,114 @@
+@page "/admin/user-list"
+@attribute [Authorize]
+
+<PageTitle>@Localizer["page-title-admin-user-list"]</PageTitle>
+
+<MudTable Items="@_users" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">@Localizer["page-title-admin-user-list"]</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
+            @Localizer["button-admin-user-list-new-user"]
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>@Localizer["th-admin-user-list-id"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-first-name"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-last-name"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-username"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-email"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-is-active"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-role"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-birth-date"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-is-trained"]</MudTh>
+        <MudTh>@Localizer["th-admin-user-list-phone-number"]</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="First name">@context.FirstName</MudTd>
+        <MudTd DataLabel="Last name">@context.LastName</MudTd>
+        <MudTd DataLabel="Username">@context.Username</MudTd>
+        <MudTd DataLabel="Email">@context.Email</MudTd>
+        <MudTd DataLabel="Is active">@(context.IsActive ? Localizer["text-global-yes"] : Localizer["text-global-no"])</MudTd>
+        <MudTd DataLabel="Role">@context.Role.Name</MudTd>
+        <MudTd DataLabel="Birth date">@(context.BirthDate == null ? "N/A" : $"{context.BirthDate:yyyy-MM-dd}")</MudTd>
+        <MudTd DataLabel="Is trained">@(context.IsTrained ? Localizer["text-global-yes"] : Localizer["text-global-no"])</MudTd>
+        <MudTd DataLabel="Phone number">@(context.PhoneNumber ?? "N/A")</MudTd>
+        <MudTd>
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Disabled="(context.Id == AuthenticationService.User.Id)" ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            @Localizer["text-admin-user-list-no-records"]
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code {
+    private IEnumerable<User> _users = new List<User>();
+    private bool _isLoading = false;
+    
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _users = await UserService.GetAll();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditUserDialog>(Localizer["dialog-admin-edit-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox(Localizer["title-admin-delete-user"], Localizer["message-admin-delete-user"], Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await UserService.DeleteUser(id);
+                Snackbar.Add(Localizer["snackbar-admin-delete-user-success"], Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+}

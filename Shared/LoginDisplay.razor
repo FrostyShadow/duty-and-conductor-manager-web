@@ -2,7 +2,7 @@
 @inject NavigationManager NavigationManager
 
 <MudMenu Color="Color.Inherit" Label="@_username" StartIcon="@Icons.Material.Filled.Person" EndIcon="@Icons.Material.Filled.ArrowDropDown">
-    <MudMenuItem>Edit profile</MudMenuItem>
+    <MudMenuItem OnClick="OnEditClick">Edit profile</MudMenuItem>
     <MudMenuItem OnClick="OnLogoutClick">Logout</MudMenuItem>
 </MudMenu>
 
@@ -13,6 +13,11 @@
     protected override async void OnInitialized()
     {
         _username = $"{AuthenticationService.User.FirstName} {AuthenticationService.User.LastName}";
+    }
+
+    private async void OnEditClick()
+    {
+        DialogService.Show<EditUserDialog>(Localizer["dialog-admin-edit-user"], new DialogParameters { ["Id"] = AuthenticationService.User.Id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
     }
 
     private async void OnLogoutClick()

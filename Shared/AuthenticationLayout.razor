@@ -8,9 +8,10 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudText Typo="Typo.h5" Class="ml-3">
-            Conductor Service Manager
+            @Localizer["app-name"]
         </MudText>
         <MudSpacer />
+        <LanguageButton />
         <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="DarkMode" />
     </MudAppBar>
     <MudMainContent Class="d-flex flex-column" Style="height: 100vh">

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="page-title-sign-in" xml:space="preserve">
+    <value>Sign in</value>
+    <comment/>
+  </data>
+  <data name="button-sign-in-submit" xml:space="preserve">
+    <value>Sign in</value>
+    <comment/>
+  </data>
+  <data name="label-sign-in-username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="label-sign-in-password" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="app-name" xml:space="preserve">
+    <value>Conductor Service Manager</value>
+    <comment/>
+  </data>
+  <data name="button-sign-in-forgot-password" xml:space="preserve">
+    <value>Forgot password</value>
+    <comment/>
+  </data>
+  <data name="nav-link-dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="nav-group-management" xml:space="preserve">
+    <value>Management</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-user-list" xml:space="preserve">
+    <value>User list</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-add-user" xml:space="preserve">
+    <value>Add new user</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-birth-date" xml:space="preserve">
+    <value>Birth date</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-submit" xml:space="preserve">
+    <value>Add user</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-user-reset" xml:space="preserve">
+    <value>Clear form</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-first-name" xml:space="preserve">
+    <value>First name is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-last-name" xml:space="preserve">
+    <value>Last name is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-username" xml:space="preserve">
+    <value>Username is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-email" xml:space="preserve">
+    <value>Email is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-role" xml:space="preserve">
+    <value>Role is required</value>
+    <comment/>
+  </data>
+  <data name="error-admin-add-user-birth-date" xml:space="preserve">
+    <value>Birth date is required</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-user-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="page-title-admin-user-list" xml:space="preserve">
+    <value>User list</value>
+    <comment/>
+  </data>
+  <data name="button-admin-user-list-new-user" xml:space="preserve">
+    <value>New user</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-username" xml:space="preserve">
+    <value>Username</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-is-active" xml:space="preserve">
+    <value>Is active?</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-birth-date" xml:space="preserve">
+    <value>Birth date</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="th-admin-user-list-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="text-global-yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment/>
+  </data>
+  <data name="text-global-no" xml:space="preserve">
+    <value>No</value>
+    <comment/>
+  </data>
+  <data name="error-sign-in-username" xml:space="preserve">
+    <value>Username is required</value>
+    <comment/>
+  </data>
+  <data name="error-sign-in-password" xml:space="preserve">
+    <value>Password is required</value>
+    <comment/>
+  </data>
+  <data name="label-forgot-password-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="button-forgot-password-submit" xml:space="preserve">
+    <value>Continue</value>
+    <comment/>
+  </data>
+  <data name="error-forgot-password-email" xml:space="preserve">
+    <value>Email is required</value>
+    <comment/>
+  </data>
+  <data name="dialog-forgot-password" xml:space="preserve">
+    <value>Forgot password</value>
+    <comment/>
+  </data>
+  <data name="alert-activate-success" xml:space="preserve">
+    <value>Account activated successfully. Now you can set your password using the form below.</value>
+    <comment/>
+  </data>
+  <data name="text-activate-set-password" xml:space="preserve">
+    <value>Set password</value>
+    <comment/>
+  </data>
+  <data name="label-activate-password" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="label-activate-repeat-password" xml:space="preserve">
+    <value>Repeat password</value>
+    <comment/>
+  </data>
+  <data name="button-activate-submit" xml:space="preserve">
+    <value>Continue</value>
+    <comment/>
+  </data>
+  <data name="error-activate-password" xml:space="preserve">
+    <value>Password is required</value>
+    <comment/>
+  </data>
+  <data name="error-activate-repeat-password" xml:space="preserve">
+    <value>Repeat password is required</value>
+    <comment/>
+  </data>
+  <data name="error-activate-compare-password" xml:space="preserve">
+    <value>Passwords don't match</value>
+    <comment/>
+  </data>
+  <data name="error-activate-regex-password" xml:space="preserve">
+    <value>Password must be at least 8 characters long and contain 1 lowercase letter, 1 upper case letter, 1 special character and 1 numeric character</value>
+    <comment/>
+  </data>
+  <data name="alert-forgot-password-success" xml:space="preserve">
+    <value>You can now set your new password below.</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-first-name" xml:space="preserve">
+    <value>First name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-last-name" xml:space="preserve">
+    <value>Last name</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-email" xml:space="preserve">
+    <value>Email</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-role" xml:space="preserve">
+    <value>Role</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-is-active" xml:space="preserve">
+    <value>Is active?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-is-trained" xml:space="preserve">
+    <value>Is trained?</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-phone-number" xml:space="preserve">
+    <value>Phone number</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-submit" xml:space="preserve">
+    <value>Save</value>
+    <comment/>
+  </data>
+  <data name="snackbar-activate-set-password-success" xml:space="preserve">
+    <value>Password set successfully. You can now sign in to your account.</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-close" xml:space="preserve">
+    <value>Close</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-add-user-success" xml:space="preserve">
+    <value>User created successfully</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-user-error-user-data" xml:space="preserve">
+    <value>Error occured while trying to fetch user data</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-success" xml:space="preserve">
+    <value>User data saved successfully</value>
+    <comment/>
+  </data>
+  <data name="label-admin-edit-user-password" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-edit-user" xml:space="preserve">
+    <value>Edit user</value>
+    <comment/>
+  </data>
+</root>

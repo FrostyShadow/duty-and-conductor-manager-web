@@ -8,8 +8,9 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        Conductor Service Manager
+            @Localizer["app-name"]
         <MudSpacer />
+        <LanguageButton />
         <MudIconButton Color="Color.Inherit" Icon="@Icons.Material.Filled.Brightness4" OnClick="(() => DarkMode())" />
         <LoginDisplay />
     </MudAppBar>
