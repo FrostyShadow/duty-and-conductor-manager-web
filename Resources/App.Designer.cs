@@ -112,6 +112,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New announcement.
+        /// </summary>
+        public static string button_admin_announcement_list_new_announcement {
+            get {
+                return ResourceManager.GetString("button-admin-announcement-list-new-announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string button_admin_edit_close {
@@ -508,6 +517,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Announcement list.
+        /// </summary>
+        public static string nav_link_admin_announcement_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-announcement-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User list.
         /// </summary>
         public static string nav_link_admin_user_list {
@@ -522,6 +540,15 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string nav_link_dashboard {
             get {
                 return ResourceManager.GetString("nav-link-dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement list.
+        /// </summary>
+        public static string page_title_admin_announcement_list {
+            get {
+                return ResourceManager.GetString("page-title-admin-announcement-list", resourceCulture);
             }
         }
         
@@ -589,6 +616,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No announcements found.
+        /// </summary>
+        public static string text_admin_announcement_list_no_records {
+            get {
+                return ResourceManager.GetString("text-admin-announcement-list-no-records", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string text_global_no {
@@ -603,6 +639,51 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string text_global_yes {
             get {
                 return ResourceManager.GetString("text-global-yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation date.
+        /// </summary>
+        public static string th_admin_announcement_list_creation_date {
+            get {
+                return ResourceManager.GetString("th-admin-announcement-list-creation-date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator name.
+        /// </summary>
+        public static string th_admin_announcement_list_creator_name {
+            get {
+                return ResourceManager.GetString("th-admin-announcement-list-creator-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string th_admin_announcement_list_id {
+            get {
+                return ResourceManager.GetString("th-admin-announcement-list-id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string th_admin_announcement_list_message {
+            get {
+                return ResourceManager.GetString("th-admin-announcement-list-message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement type.
+        /// </summary>
+        public static string th_admin_announcement_list_type_name {
+            get {
+                return ResourceManager.GetString("th-admin-announcement-list-type-name", resourceCulture);
             }
         }
         

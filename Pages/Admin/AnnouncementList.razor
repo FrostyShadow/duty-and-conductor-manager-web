@@ -1,0 +1,104 @@
+@page "/admin/announcement-list"
+@attribute [Authorize]
+
+<PageTitle>@Localizer["page-title-admin-announcement-list"]</PageTitle>
+
+<MudTable Items="@_announcements" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">@Localizer["page-title-admin-announcement-list"]</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
+            @Localizer["button-admin-announcement-list-new-announcement"]
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>@Localizer["th-admin-announcement-list-id"]</MudTh>
+        <MudTh>@Localizer["th-admin-announcement-list-creation-date"]</MudTh>
+        <MudTh>@Localizer["th-admin-announcement-list-creator-name"]</MudTh>
+        <MudTh>@Localizer["th-admin-announcement-list-message"]</MudTh>
+        <MudTh>@Localizer["th-admin-announcement-list-type-name"]</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Created date">@context.CreatedDateTime.ToString("yyyy-MM-dd hh:mm:ss")</MudTd>
+        <MudTd DataLabel="Creator name">@context.User.FirstName @context.User.LastName</MudTd>
+        <MudTd DataLabel="Message">@context.Message</MudTd>
+        <MudTd DataLabel="Type">@context.AnnouncementType.Name</MudTd>
+        <MudTd>
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            @Localizer["text-admin-announcement-list-no-records"]
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code
+{
+    private IEnumerable<Announcement> _announcements = new List<Announcement>();
+    private bool _isLoading = false;
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _announcements = await AnnouncementService.GetAll();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddAnnouncementDialog>(Localizer["dialog-admin-add-announcement"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditAnnouncementDialog>(Localizer["dialog-admin-edit-announcement"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox(Localizer["title-admin-delete-announcement"], Localizer["message-admin-delete-announcement"], Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await AnnouncementService.DeleteAnnouncement(id, AuthenticationService.User.Id);
+                Snackbar.Add(Localizer["snackbar-admin-delete-announcement-success"], Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+}

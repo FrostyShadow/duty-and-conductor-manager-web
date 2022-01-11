@@ -1,5 +1,5 @@
 <MudItem xs="12">
-    <MudCard Elevation="1">
+    <MudCard Outlined="true">
         <MudCardHeader>
             <CardHeaderAvatar>
                 <MudAvatar Color="Color.Primary">@FirstName[0]@LastName[0]</MudAvatar>
@@ -11,7 +11,7 @@
             <CardHeaderActions>
                 @switch(Type)
                 {
-                    case AnnouncementType.Info:
+                    case 1:
                         <MudChip Color="Color.Info">Info</MudChip>
                         break;
                     default:
@@ -36,7 +36,7 @@
     [Parameter]
     public DateTime PublishDate {get;set;}
     [Parameter]
-    public AnnouncementType Type {get;set;}
+    public int Type {get;set;}
     [Parameter]
     public string AnnouncementBody {get;set;}
 }
