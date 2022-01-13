@@ -94,11 +94,11 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear form.
+        ///   Looks up a localized string similar to Create announcement.
         /// </summary>
-        public static string button_admin_add_user_reset {
+        public static string button_admin_add_announcement_submit {
             get {
-                return ResourceManager.GetString("button-admin-add-user-reset", resourceCulture);
+                return ResourceManager.GetString("button-admin-add-announcement-submit", resourceCulture);
             }
         }
         
@@ -117,6 +117,15 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string button_admin_announcement_list_new_announcement {
             get {
                 return ResourceManager.GetString("button-admin-announcement-list-new-announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save announcement.
+        /// </summary>
+        public static string button_admin_edit_announcement_submit {
+            get {
+                return ResourceManager.GetString("button-admin-edit-announcement-submit", resourceCulture);
             }
         }
         
@@ -157,6 +166,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear form.
+        /// </summary>
+        public static string button_global_clear {
+            get {
+                return ResourceManager.GetString("button-global-clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password.
         /// </summary>
         public static string button_sign_in_forgot_password {
@@ -175,11 +193,29 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new announcement.
+        /// </summary>
+        public static string dialog_admin_add_announcement {
+            get {
+                return ResourceManager.GetString("dialog-admin-add-announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new user.
         /// </summary>
         public static string dialog_admin_add_user {
             get {
                 return ResourceManager.GetString("dialog-admin-add-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit announcement.
+        /// </summary>
+        public static string dialog_admin_edit_announcement {
+            get {
+                return ResourceManager.GetString("dialog-admin-edit-announcement", resourceCulture);
             }
         }
         
@@ -333,6 +369,24 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string label_activate_repeat_password {
             get {
                 return ResourceManager.GetString("label-activate-repeat-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement message.
+        /// </summary>
+        public static string label_admin_add_announcement_message {
+            get {
+                return ResourceManager.GetString("label-admin-add-announcement-message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement type.
+        /// </summary>
+        public static string label_admin_add_announcement_type {
+            get {
+                return ResourceManager.GetString("label-admin-add-announcement-type", resourceCulture);
             }
         }
         
@@ -508,6 +562,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        public static string message_admin_delete_announcement {
+            get {
+                return ResourceManager.GetString("message-admin-delete-announcement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Management.
         /// </summary>
         public static string nav_group_management {
@@ -580,11 +643,47 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Announcement added successfully.
+        /// </summary>
+        public static string snackbar_admin_add_announcement_success {
+            get {
+                return ResourceManager.GetString("snackbar-admin-add-announcement-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User created successfully.
         /// </summary>
         public static string snackbar_admin_add_user_success {
             get {
                 return ResourceManager.GetString("snackbar-admin-add-user-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement deleted successfully.
+        /// </summary>
+        public static string snackbar_admin_delete_announcement_success {
+            get {
+                return ResourceManager.GetString("snackbar-admin-delete-announcement-success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occured while trying to fetch the announcement.
+        /// </summary>
+        public static string snackbar_admin_edit_announcement_error_announcement_data {
+            get {
+                return ResourceManager.GetString("snackbar-admin-edit-announcement-error-announcement-data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcement saved successfully.
+        /// </summary>
+        public static string snackbar_admin_edit_announcement_success {
+            get {
+                return ResourceManager.GetString("snackbar-admin-edit-announcement-success", resourceCulture);
             }
         }
         
@@ -774,6 +873,15 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string th_admin_user_list_username {
             get {
                 return ResourceManager.GetString("th-admin-user-list-username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete announcement.
+        /// </summary>
+        public static string title_admin_delete_announcement {
+            get {
+                return ResourceManager.GetString("title-admin-delete-announcement", resourceCulture);
             }
         }
     }
