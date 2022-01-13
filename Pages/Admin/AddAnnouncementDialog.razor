@@ -4,15 +4,15 @@
         <DialogContent>
             <div class="d-flex flex-column py-1">
                 <MudTextField InputType="InputType.Text" Lines="3" Counter="250" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label='@Localizer["label-admin-add-announcement-message"]' @bind-Value="model.Message" For="(() => model.Message)" />
-                <MudSelect T="int" Label='@Localizer["label-admin-add-user-role"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.AnnouncementTypeId" For="(() => model.AnnouncementTypeId)">
+                <MudSelect T="int" Label='@Localizer["label-admin-add-announcement-type"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.AnnouncementTypeId" For="(() => model.AnnouncementTypeId)">
                     <MudSelectItem Value="1">Info</MudSelectItem>
                     <MudSelectItem Value="2">Important</MudSelectItem>
                 </MudSelect>
             </div>
         </DialogContent>
         <DialogActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-add-user-submit"]</MudButton>
-            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["button-admin-add-user-reset"]</MudButton>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-add-announcement-submit"]</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["button-global-clear"]</MudButton>
         </DialogActions>
     </MudDialog>
 </EditForm>
@@ -50,7 +50,7 @@
         try
         {
             await AnnouncementService.AddAnnouncement(model.CreatorId, model.Message, model.AnnouncementTypeId);
-            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            Snackbar.Add(@Localizer["snackbar-admin-add-announcement-success"], Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }
         catch (Exception ex)
