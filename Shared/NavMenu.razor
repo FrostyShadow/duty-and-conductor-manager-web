@@ -4,6 +4,12 @@
     {
         <MudNavGroup Title='@Localizer["nav-group-management"]' Icon="@Icons.Material.Filled.Settings">
             <MudNavLink Href="/admin/user-list" Icon="@Icons.Material.Filled.People">@Localizer["nav-link-admin-user-list"]</MudNavLink>
+            <MudNavGroup Title="Vehicle management" Icon="@Icons.Material.Filled.DirectionsBus">
+                <MudNavLink Href="/admin/vehicle-list">Vehicles list</MudNavLink>
+                <MudNavLink Href="/admin/model-list">Vehicle models list</MudNavLink>
+                <MudNavLink Href="/admin/manufacturer-list">Vehicle manufacturers list</MudNavLink>
+                <MudNavLink Href="/admin/set-list">Vehicle set list</MudNavLink>
+            </MudNavGroup>
         </MudNavGroup>
     }
 </MudNavMenu>

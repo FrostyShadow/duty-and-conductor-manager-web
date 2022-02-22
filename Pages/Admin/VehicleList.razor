@@ -1,0 +1,23 @@
+@page "/admin/vehicle-list"
+@attribute [Authorize]
+
+<PageTitle>Vehicle list</PageTitle>
+
+<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Vehicle list</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtoType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add">
+            Add new vehicle
+        </MudButton>
+    </ToolBarContent>
+    <HeadContent>
+        
+    </HeadContent>
+</MudTable>
+
+@code
+{
+    private IEnumerable<Vehicle> _vehicles = new List<Vehicle>();
+    private bool _isLoading = false;
+}
