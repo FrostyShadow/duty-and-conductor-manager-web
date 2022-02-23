@@ -1,32 +1,24 @@
-@page "/admin/vehicle-list"
+@page "/admin/manufacturer-list"
 @attribute [Authorize]
 
-<PageTitle>Vehicle list</PageTitle>
+<PageTitle>Manufacturer list</PageTitle>
 
-<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+<MudTable Items="@_manufacturers" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Vehicle list</MudText>
+        <MudText Typo="Typo.h6">Manufacturer list</MudText>
         <MudSpacer />
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add">
-            Add new vehicle
+            Add new manufacturer
         </MudButton>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh>Side number</MudTh>
-        <MudTh>Manufacturer</MudTh>
-        <MudTh>Model</MudTh>
-        <MudTh>Vehicle type</MudTh>
-        <MudTh>Is coupleable?</MudTh>
+        <MudTh>Name</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Side number">@context.SideNumber</MudTd>
-        <MudTd DataLabel="Manufacturer">@context.Model.Manufacturer.Name</MudTd>
-        <MudTd DataLabel="Model">@context.Model.Name</MudTd>
-        <MudTd DataLabel="Vehicle type">@context.Model.VehicleType.Name</MudTd>
-        <MudTd DataLabel="Is coupleable?">@context.Model.IsCoupleable</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd></MudTd>
     </RowTemplate>
     <NoRecordsContent>
@@ -38,7 +30,7 @@
 
 @code
 {
-    private IEnumerable<Vehicle> _vehicles = new List<Vehicle>();
+    private IEnumerable<VehicleManufacturer> _manufacturers = new List<VehicleManufacturer>();
     private bool _isLoading = false;
 
     protected override async void OnInitialized()
@@ -51,7 +43,7 @@
         try
         {
             _isLoading = true;
-            _vehicles = await VehicleService.GetAllVehicles();
+            _manufacturers = await VehicleService.GetAllVehicleManufacturers();
             _isLoading = false;
             StateHasChanged();
         }

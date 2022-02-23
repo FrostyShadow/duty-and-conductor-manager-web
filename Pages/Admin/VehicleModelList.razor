@@ -1,32 +1,30 @@
 @page "/admin/vehicle-list"
 @attribute [Authorize]
 
-<PageTitle>Vehicle list</PageTitle>
+<PageTitle>Model list</PageTitle>
 
-<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+<MudTable Items="@_models" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Vehicle list</MudText>
+        <MudText Typo="Typo.h6">Model list</MudText>
         <MudSpacer />
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add">
-            Add new vehicle
+            Add new model
         </MudButton>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh>Side number</MudTh>
         <MudTh>Manufacturer</MudTh>
-        <MudTh>Model</MudTh>
+        <MudTh>Name</MudTh>
         <MudTh>Vehicle type</MudTh>
         <MudTh>Is coupleable?</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Side number">@context.SideNumber</MudTd>
-        <MudTd DataLabel="Manufacturer">@context.Model.Manufacturer.Name</MudTd>
-        <MudTd DataLabel="Model">@context.Model.Name</MudTd>
-        <MudTd DataLabel="Vehicle type">@context.Model.VehicleType.Name</MudTd>
-        <MudTd DataLabel="Is coupleable?">@context.Model.IsCoupleable</MudTd>
+        <MudTd DataLabel="Manufacturer">@context.Manufacturer.Name</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Vehicle type">@context.VehicleType.Name</MudTd>
+        <MudTd DataLabel="Is coupleable?">@context.IsCoupleable</MudTd>
         <MudTd></MudTd>
     </RowTemplate>
     <NoRecordsContent>
@@ -38,7 +36,7 @@
 
 @code
 {
-    private IEnumerable<Vehicle> _vehicles = new List<Vehicle>();
+    private IEnumerable<VehicleModel> _models = new List<VehicleModel>();
     private bool _isLoading = false;
 
     protected override async void OnInitialized()
@@ -51,7 +49,7 @@
         try
         {
             _isLoading = true;
-            _vehicles = await VehicleService.GetAllVehicles();
+            _models = await VehicleService.GetAllVehicleModels();
             _isLoading = false;
             StateHasChanged();
         }
