@@ -38,6 +38,16 @@
         GetData();
     }
 
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddManufacturerDialog>("Add vehicle manufacturer", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
     private async void GetData()
     {
         try

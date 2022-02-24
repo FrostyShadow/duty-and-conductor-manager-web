@@ -27,7 +27,9 @@
         <MudTd DataLabel="Model">@context.Model.Name</MudTd>
         <MudTd DataLabel="Vehicle type">@context.Model.VehicleType.Name</MudTd>
         <MudTd DataLabel="Is coupleable?">@context.Model.IsCoupleable</MudTd>
-        <MudTd></MudTd>
+        <MudTd>
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
     </RowTemplate>
     <NoRecordsContent>
         <MudText Typo="Typo.body2">
@@ -60,6 +62,26 @@
             Snackbar.Add(ex.Message, Severity.Error);
             _isLoading = false;
             StateHasChanged();
+        }
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete vehicle", "Are you sure you want to delete this vehicle?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await VehicleService.DeleteVehicle(id);
+                Snackbar.Add("Vehicle deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
         }
     }
 }
