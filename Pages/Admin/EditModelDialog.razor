@@ -1,0 +1,99 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Text" Label='Name' @bind-Value="model.Name" For="(() => model.Name)" />
+                <MudSelect T="int" Label="Manufacturer" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.ManufacturerId" For="(() => model.ManufacturerId)">
+                    @foreach(var manufacturer in model.Manufacturers)
+                    {
+                        <MudSelectItem T="int" Value="@manufacturer.Id">@manufacturer.Name</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudSelect T="int" Label="Vehicle type" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.VehicleTypeId" For="(() => model.VehicleTypeId)">
+                    @foreach(var vehicleType in model.VehicleTypes)
+                    {
+                        <MudSelectItem T="int" Value="@vehicleType.Id">@vehicleType.Name</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudCheckBox Label="Is coupleable?" @bind-Checked="@model.IsCoupleable" For="(() => model.IsCoupleable" />
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int Id {get;set;}
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+    public class EditModelForm
+    {
+        public string Name {get;set;}
+        public IEnumerable<VehicleManufacturer> Manufacturers {get;set;}
+        public int ManufacturerId {get;set;}
+        public IEnumerable<VehicleType> VehicleTypes {get;set;}
+        public int VehicleTypeId {get;set;}
+        public bool IsCoupleable {get;set;}
+    }
+
+    private EditModelForm model = new EditModelForm();
+
+
+    protected override async void OnInitialized()
+    {
+        GetManufacturers();
+        model.VehicleTypes = new List<VehicleType>
+        {
+            new VehicleType
+            {
+                Id = 1,
+                Name = "Tram Engine Car"
+            },
+            new VehicleType
+            {
+                Id = 2,
+                Name = "Tram Passive Car"
+            },
+            new VehicleType
+            {
+                Id = 3,
+                Name = "Bus"
+            },
+            new VehicleType
+            {
+                Id = 4,
+                Name = "Bus Trailer"
+            }
+        };
+        StateHasChanged();
+    }
+
+    private async void GetManufacturers()
+    {
+        model.Manufacturers = await VehicleService.GetAllVehicleManufacturers();
+        StateHasChanged();
+    }
+
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await VehicleService.EditVehicleModel(Id, model.Name, model.ManufacturerId, model.VehicleTypeId, model.IsCoupleable);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}

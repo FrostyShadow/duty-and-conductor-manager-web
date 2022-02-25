@@ -25,7 +25,10 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Vehicle type">@context.VehicleType.Name</MudTd>
         <MudTd DataLabel="Is coupleable?">@context.IsCoupleable</MudTd>
-        <MudTd></MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
     </RowTemplate>
     <NoRecordsContent>
         <MudText Typo="Typo.body2">
@@ -58,6 +61,44 @@
             Snackbar.Add(ex.Message, Severity.Error);
             _isLoading = false;
             StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddModelDialog>("Add vehicle model", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditModelDialog>("Edit vehicle model", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete vehicle model", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await VehicleService.DeleteVehicleModel(id);
+                Snackbar.Add("Vehicle manufacturer deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
         }
     }
 }

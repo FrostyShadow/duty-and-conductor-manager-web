@@ -23,8 +23,8 @@
             <MudTooltip Text="Show vehicles in set">
                 <MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Color="Color.Inherit" />
             </MudTooltip>
-            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" />
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" />
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OnDeleteClick(context.Id))" />
         </MudTd>
     </RowTemplate>
     <ChildRowContent>
@@ -37,20 +37,18 @@
                             <MudText Typo="Typo.body1">Vehicles for set <strong>@context.Name</strong></MudText>
                         </ToolBarContent>
                         <HeaderContent>
-                            <MudTh>Id</MudTh>
+                            <MudTh>Number in set</MudTh>
                             <MudTh>Side number</MudTh>
                             <MudTh>Manufacturer</MudTh>
                             <MudTh>Model</MudTh>
-                            <MudTh>Vehicle type</MudTh>
-                            <MudTh>Number in set</MudTh>
+                            <MudTh>Vehicle type</MudTh>                          
                         </HeaderContent>
                         <RowTemplate>
-                            <MudTd DataLabel="Id">@SetContext.Vehicle.Id</MudTd>
+                            <MudTd DataLabel="Number in set">@SetContext.Index</MudTd>
                             <MudTd DataLabel="Side number">@SetContext.Vehicle.SideNumber</MudTd>
                             <MudTd DataLabel="Manufacturer">@SetContext.Vehicle.Model.Manufacturer.Name</MudTd>
                             <MudTd DataLabel="Model">@SetContext.Vehicle.Model.Name</MudTd>
                             <MudTd DataLabel="Vehicle type">@SetContext.Vehicle.Model.VehicleType.Name</MudTd>
-                            <MudTd DataLabel="Number in set">@SetContext.Index</MudTd>
                         </RowTemplate>
                     </MudTable>
                 </td>
@@ -88,6 +86,44 @@
             Snackbar.Add(ex.Message, Severity.Error);
             _isLoading = false;
             StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddSetDialog>("Add set", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditVehicleDialog>("Edit vehicle", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete vehicle", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await VehicleService.DeleteVehicle(id);
+                Snackbar.Add("Vehicle vehicle deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
         }
     }
 }
