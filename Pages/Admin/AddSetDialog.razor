@@ -4,6 +4,22 @@
         <DialogContent>
             <div class="d-flex flex-column py-1">
                 <MudTextField InputType="InputType.Text" Label='Name' @bind-Value="model.Name" For="(() => model.Name)" />
+                <MudSlider Max="3" Min="1" Step="1" @bind-Value="NumberOfVehicles">Number of vehicles: @NumberOfVehicles</MudSlider>
+                <MudSelect T="int" Label="Leading vehicle">
+
+                </MudSelect>
+                @if (NumberOfVehicles >= 2)
+                {
+                    <MudSelect T="int" Label="Secondary vehicle">
+
+                    </MudSelect>
+                }
+                @if (NumberOfVehicles == 3)
+                {
+                    <MudSelect T="int" Label="Tertiary vehicle">
+                        
+                    </MudSelect>
+                }
             </div>
         </DialogContent>
         <DialogActions>
@@ -16,13 +32,14 @@
 @code {
     [CascadingParameter]
     MudDialogInstance MudDialog {get;set;}
+    public int NumberOfVehicles {get;set;} = 1;
 
-    public class AddManufacturerForm
+    public class AddSetForm
     {
         public string Name {get;set;}
     }
 
-    private AddManufacturerForm model = new AddManufacturerForm();
+    private AddSetForm model = new AddSetForm();
 
 
     protected override async void OnInitialized()
