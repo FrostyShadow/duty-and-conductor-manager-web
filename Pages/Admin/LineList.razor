@@ -1,0 +1,104 @@
+@page "/admin/line-list"
+@attribute [Authorize]
+
+<PageTitle>Line list</PageTitle>
+
+<MudTable Items="@_lines" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Line list</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
+            Add new line
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Line number</MudTh>
+        <MudTh>Line type</MudTh>
+        <MudTh>Active from</MudTh>
+        <MudTh>Active to</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Line number">@context.Number</MudTd>
+        <MudTd DataLabel="Line type">@context.LineType.Name</MudTd>
+        <MudTd DataLabel="Active from">@context.StartDateTime</MudTd>
+        <MudTd DataLabel="Active to">@context.EndDateTime</MudTd>
+        <MudTd>
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            No lines found
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code {
+    private IEnumerable<Line> _lines = new List<Line>();
+    private bool _isLoading = false;
+    
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _lines = await LineService.GetAll();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddLineDialog>("Add line", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditLineDialog>(Localizer["dialog-admin-edit-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete line", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await LineService.DeleteLine(id);
+                Snackbar.Add("Line deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+}
