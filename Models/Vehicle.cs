@@ -7,4 +7,9 @@ public class Vehicle
     public string SideNumber {get;set;}
 
     public VehicleModel Model {get;set;}
+
+    public override string ToString()
+    {
+        return $"{Model.Manufacturer.Name} {Model.Name} ({SideNumber})";
+    }
 }

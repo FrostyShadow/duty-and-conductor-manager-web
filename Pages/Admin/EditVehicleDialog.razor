@@ -7,7 +7,7 @@
                 <MudSelect T="int" Label="Model" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.ModelId" For="(() => model.ModelId)">
                     @foreach(var model in model.Models)
                     {
-                        <MudSelectItem T="int" Value="@model.Id">@model.Name</MudSelectItem>
+                        <MudSelectItem T="int" Value="@model.Id">@model.ToString()</MudSelectItem>
                     }
                 </MudSelect>
             </div>
@@ -27,7 +27,7 @@
 
     public class EditVehicleForm
     {
-        public IEnumerable<VehicleModel> Models {get;set;}
+        public IEnumerable<VehicleModel> Models {get;set;} = new List<VehicleModel>();
         public int ModelId {get;set;}
         public string SideNumber {get;set;}
     }

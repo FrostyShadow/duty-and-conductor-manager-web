@@ -10,4 +10,9 @@ public class VehicleModel
 
     public VehicleManufacturer Manufacturer {get;set;}
     public VehicleType VehicleType {get;set;}
+
+    public override string ToString()
+    {
+        return $"{Manufacturer.Name} {Name}";
+    }
 }

@@ -3,7 +3,7 @@
 
 <PageTitle>Vehicle list</PageTitle>
 
-<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true" FixedHeader="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Vehicle list</MudText>
         <MudSpacer />
@@ -37,6 +37,9 @@
             No vehicles found
         </MudText>
     </NoRecordsContent>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
 </MudTable>
 
 @code
@@ -93,7 +96,7 @@
             try
             {
                 await VehicleService.DeleteVehicle(id);
-                Snackbar.Add("Vehicle vehicle deleted successfully", Severity.Success);
+                Snackbar.Add("Vehicle deleted successfully", Severity.Success);
                 GetData();
             }
             catch (Exception ex)

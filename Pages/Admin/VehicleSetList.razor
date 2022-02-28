@@ -21,7 +21,7 @@
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd>
             <MudTooltip Text="Show vehicles in set">
-                <MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Color="Color.Inherit" />
+                <MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Color="Color.Inherit" OnClick="(() => OnMoreClick(context.Id))" />
             </MudTooltip>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OpenEditDialog(context.Id))" />
             <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OnDeleteClick(context.Id))" />
@@ -89,6 +89,12 @@
         }
     }
 
+    private async Task OnMoreClick(int id)
+    {
+        var set = _sets.First(x => x.Id == id);
+        set.ShowDetails = !set.ShowDetails;
+    }
+
     private async Task OpenAddDialog()
     {
         var dialog = DialogService.Show<AddSetDialog>("Add set", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
@@ -100,7 +106,7 @@
 
     private async Task OpenEditDialog(int id)
     {
-        var dialog = DialogService.Show<EditVehicleDialog>("Edit vehicle", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialog = DialogService.Show<EditSetDialog>("Edit set", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
         var dialogResult = await dialog.Result;
 
         if(!dialogResult.Cancelled)
@@ -109,14 +115,14 @@
 
     public async void OnDeleteClick(int id)
     {
-        var messageBox = await DialogService.ShowMessageBox("Delete vehicle", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+        var messageBox = await DialogService.ShowMessageBox("Delete set", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
 
         if(messageBox ?? false)
         {
             try
             {
-                await VehicleService.DeleteVehicle(id);
-                Snackbar.Add("Vehicle vehicle deleted successfully", Severity.Success);
+                await VehicleService.DeleteSet(id);
+                Snackbar.Add("Vehicle set deleted successfully", Severity.Success);
                 GetData();
             }
             catch (Exception ex)

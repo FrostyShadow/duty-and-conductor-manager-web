@@ -91,7 +91,7 @@
             try
             {
                 await VehicleService.DeleteVehicleModel(id);
-                Snackbar.Add("Vehicle manufacturer deleted successfully", Severity.Success);
+                Snackbar.Add("Vehicle model deleted successfully", Severity.Success);
                 GetData();
             }
             catch (Exception ex)

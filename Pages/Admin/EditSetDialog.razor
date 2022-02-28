@@ -45,6 +45,8 @@
 @code {
     [CascadingParameter]
     MudDialogInstance MudDialog {get;set;}
+    [Parameter]
+    public int Id {get;set;}
     public int NumberOfVehicles {get;set;} = 1;
 
     public IEnumerable<Vehicle> Vehicles {get;set;} = new List<Vehicle>();
@@ -89,7 +91,7 @@
                     Index = veh.i + 1
                 });
             }
-            await VehicleService.AddSet(model.Name, setVehicles);
+            await VehicleService.EditSet(Id, model.Name, setVehicles);
             Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }

@@ -37,9 +37,9 @@
     public class AddModelForm
     {
         public string Name {get;set;}
-        public IEnumerable<VehicleManufacturer> Manufacturers {get;set;}
+        public IEnumerable<VehicleManufacturer> Manufacturers {get;set;} = new List<VehicleManufacturer>();
         public int ManufacturerId {get;set;}
-        public IEnumerable<VehicleType> VehicleTypes {get;set;}
+        public IEnumerable<VehicleType> VehicleTypes {get;set;} = new List<VehicleType>();
         public int VehicleTypeId {get;set;}
         public bool IsCoupleable {get;set;}
     }
