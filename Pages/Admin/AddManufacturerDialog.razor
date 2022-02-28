@@ -1,0 +1,47 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Text" Label='Name' @bind-Value="model.Name" For="(() => model.Name)" />
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+    public class AddManufacturerForm
+    {
+        public string Name {get;set;}
+    }
+
+    private AddManufacturerForm model = new AddManufacturerForm();
+
+
+    protected override async void OnInitialized()
+    {
+    }
+
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await VehicleService.AddVehicleManufacturer(model.Name);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}

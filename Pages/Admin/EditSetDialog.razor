@@ -1,0 +1,104 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Text" Label='Name' @bind-Value="model.Name" For="(() => model.Name)" />
+                
+                <MudSelect T="Vehicle" Label="Leading vehicle" @bind-Value="SelectedVehicles[0]">
+                    @foreach (var vehicle in Vehicles.Where(x => x.Model.VehicleTypeId == 1 || x.Model.VehicleTypeId == 3))
+                    {
+                        <MudSelectItem T="Vehicle" Value="@vehicle">@vehicle.ToString()</MudSelectItem>
+                    }
+                </MudSelect>
+                @if (SelectedVehicles[0]?.Model?.IsCoupleable ?? false)
+                {
+                    <MudSlider Max="@(SelectedVehicles[0].Model.VehicleTypeId == 3 ? 2 : 3)" Min="1" Step="1" @bind-Value="NumberOfVehicles">Number of vehicles: @NumberOfVehicles</MudSlider>
+                    @if (NumberOfVehicles >= 2)
+                    {
+                        <MudSelect T="Vehicle" Label="Secondary vehicle" @bind-Value="SelectedVehicles[1]">
+                            @foreach (var vehicle in Vehicles.Where(x => (x.Model.VehicleTypeId == 2 && SelectedVehicles[0].Model.VehicleTypeId == 1) || (x.Model.VehicleTypeId == 4 && SelectedVehicles[0].Model.VehicleTypeId == 3)))
+                            {
+                                <MudSelectItem T="Vehicle" Value="@vehicle">@vehicle.ToString()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
+                    @if (NumberOfVehicles == 3)
+                    {
+                        <MudSelect T="Vehicle" Label="Tertiary vehicle" @bind-Value="SelectedVehicles[2]">
+                            @foreach (var vehicle in Vehicles.Where(x => ((x.Model.VehicleTypeId == 2 && SelectedVehicles[0].Model.VehicleTypeId == 1) || (x.Model.VehicleTypeId == 4 && SelectedVehicles[0].Model.VehicleTypeId == 3)) && x != SelectedVehicles[1]))
+                            {
+                                <MudSelectItem T="Vehicle" Value="@vehicle">@vehicle.ToString()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    }
+                }
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+    [Parameter]
+    public int Id {get;set;}
+    public int NumberOfVehicles {get;set;} = 1;
+
+    public IEnumerable<Vehicle> Vehicles {get;set;} = new List<Vehicle>();
+
+    public IList<Vehicle> SelectedVehicles {get;set;}
+
+    public class AddSetForm
+    {
+        public string Name {get;set;}
+    }
+
+    private AddSetForm model = new AddSetForm();
+
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+        SelectedVehicles = new List<Vehicle>
+        {
+            new Vehicle(),
+            new Vehicle(),
+            new Vehicle()
+        };
+        StateHasChanged();
+    }
+
+    private async void GetData()
+    {
+        Vehicles = await VehicleService.GetAllVehicles();
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            var setVehicles = new List<VehicleSet>();
+            foreach (var veh in SelectedVehicles.Select((value, i) => new {i, value}))
+            {
+                setVehicles.Add(new VehicleSet
+                {
+                    VehicleId = veh.value.Id,
+                    Index = veh.i + 1
+                });
+            }
+            await VehicleService.EditSet(Id, model.Name, setVehicles);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}

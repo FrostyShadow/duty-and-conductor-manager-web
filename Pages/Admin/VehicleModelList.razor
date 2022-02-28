@@ -1,0 +1,104 @@
+@page "/admin/model-list"
+@attribute [Authorize]
+
+<PageTitle>Model list</PageTitle>
+
+<MudTable Items="@_models" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Model list</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
+            Add new model
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Manufacturer</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Vehicle type</MudTh>
+        <MudTh>Is coupleable?</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Manufacturer">@context.Manufacturer.Name</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Vehicle type">@context.VehicleType.Name</MudTd>
+        <MudTd DataLabel="Is coupleable?">@context.IsCoupleable</MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            No vehicles found
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code
+{
+    private IEnumerable<VehicleModel> _models = new List<VehicleModel>();
+    private bool _isLoading = false;
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _models = await VehicleService.GetAllVehicleModels();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddModelDialog>("Add vehicle model", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditModelDialog>("Edit vehicle model", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete vehicle model", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await VehicleService.DeleteVehicleModel(id);
+                Snackbar.Add("Vehicle model deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+}

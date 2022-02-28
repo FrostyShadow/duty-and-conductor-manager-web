@@ -1,0 +1,135 @@
+@page "/admin/set-list"
+@attribute [Authorize]
+
+<PageTitle>Set list</PageTitle>
+
+<MudTable Items="@_sets" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Set list</MudText>
+        <MudSpacer />
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenAddDialog">
+            Add new set
+        </MudButton>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd>
+            <MudTooltip Text="Show vehicles in set">
+                <MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Color="Color.Inherit" OnClick="(() => OnMoreClick(context.Id))" />
+            </MudTooltip>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OpenEditDialog(context.Id))" />
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Inherit" Variant="Variant.Text" OnClick="(() => OnDeleteClick(context.Id))" />
+        </MudTd>
+    </RowTemplate>
+    <ChildRowContent>
+        @if (context.ShowDetails)
+        {
+            <MudTr>
+                <td colspan="4">
+                    <MudTable Items="@context.VehicleSets" Context="SetContext" Elevation="0" Striped="true" Hover="true" Dense="true">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.body1">Vehicles for set <strong>@context.Name</strong></MudText>
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Number in set</MudTh>
+                            <MudTh>Side number</MudTh>
+                            <MudTh>Manufacturer</MudTh>
+                            <MudTh>Model</MudTh>
+                            <MudTh>Vehicle type</MudTh>                          
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Number in set">@SetContext.Index</MudTd>
+                            <MudTd DataLabel="Side number">@SetContext.Vehicle.SideNumber</MudTd>
+                            <MudTd DataLabel="Manufacturer">@SetContext.Vehicle.Model.Manufacturer.Name</MudTd>
+                            <MudTd DataLabel="Model">@SetContext.Vehicle.Model.Name</MudTd>
+                            <MudTd DataLabel="Vehicle type">@SetContext.Vehicle.Model.VehicleType.Name</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </td>
+            </MudTr>   
+        }
+    </ChildRowContent>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body2">
+            No sets found
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code
+{
+    private IEnumerable<Set> _sets = new List<Set>();
+    private bool _isLoading = false;
+
+    protected override async void OnInitialized()
+    {
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        try
+        {
+            _isLoading = true;
+            _sets = await VehicleService.GetAllSets();
+            _isLoading = false;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            _isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnMoreClick(int id)
+    {
+        var set = _sets.First(x => x.Id == id);
+        set.ShowDetails = !set.ShowDetails;
+    }
+
+    private async Task OpenAddDialog()
+    {
+        var dialog = DialogService.Show<AddSetDialog>("Add set", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenEditDialog(int id)
+    {
+        var dialog = DialogService.Show<EditSetDialog>("Edit set", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    public async void OnDeleteClick(int id)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete set", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await VehicleService.DeleteSet(id);
+                Snackbar.Add("Vehicle set deleted successfully", Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+}
