@@ -32,13 +32,54 @@
         <MudTd DataLabel="Vehicle set name">@context.Set.Name</MudTd>
         <MudTd DataLabel="Line number">@context.Line.Number</MudTd>
         <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.ExpandMore" Color="Color.Inherit" OnClick="(() => OnMoreClick(context.Id))" />
             <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="(() => OpenEditDialog(context.Id))" />
-            <MudIconButton Disabled="(context.Id == AuthenticationService.User.Id)" ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
+            <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteClick(context.Id))" />
         </MudTd>
     </RowTemplate>
+    <ChildRowContent>
+        @if (context.ShowDetails)
+        {
+            <MudTr>
+                <td></td>
+                <td colspan="7">
+                    <MudTable Items="@context.BrigadeUsers" Context="BrigadeContext" Elevation="0" Striped="true" Hover="true" Dense="true">
+                        <ToolBarContent>
+                            <MudText Typo="Typo.body1">Conductors for brigade <strong>@context.Name</strong></MudText>
+                            <MudSpacer />
+                            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" OnClick="(() => OpenAddToBrigadeDialog(context.Id))">
+                                Add conductor to brigade
+                            </MudButton> 
+                        </ToolBarContent>
+                        <HeaderContent>
+                            <MudTh>Id</MudTh>
+                            <MudTh>First name</MudTh>
+                            <MudTh>Last name</MudTh>
+                            <MudTh>Is manager?</MudTh>
+                            <MudTh></MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Id">@BrigadeContext.User.Id</MudTd>
+                            <MudTd DataLabel="First name">@BrigadeContext.User.FirstName</MudTd>
+                            <MudTd DataLabel="Last name">@BrigadeContext.User.LastName</MudTd>
+                            <MudTd DataLabel="Is manager?">@BrigadeContext.IsManager</MudTd>
+                            <MudTd>
+                                <MudIconButton ButtonType="ButtonType.Button" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="(() => OnDeleteFromBrigadeClick(BrigadeContext.BrigadeId, BrigadeContext.UserId))" />
+                            </MudTd>
+                        </RowTemplate>
+                        <NoRecordsContent>
+                            <MudText Typo="Typo.body2">
+                                No conductors in brigade found
+                            </MudText>
+                        </NoRecordsContent>
+                    </MudTable>
+                </td>
+            </MudTr>
+        }
+    </ChildRowContent>
     <NoRecordsContent>
         <MudText Typo="Typo.body2">
-            @Localizer["text-admin-user-list-no-records"]
+            No brigades found
         </MudText>
     </NoRecordsContent>
 </MudTable>
@@ -70,9 +111,15 @@
         }
     }
 
+    private async Task OnMoreClick(int id)
+    {
+        var set = _brigades.First(x => x.Id == id);
+        set.ShowDetails = !set.ShowDetails;
+    }
+
     private async Task OpenAddDialog()
     {
-        var dialog = DialogService.Show<AddUserDialog>(Localizer["dialog-admin-add-user"], new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialog = DialogService.Show<AddBrigadeDialog>("Add brigade", new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
         var dialogResult = await dialog.Result;
 
         if(!dialogResult.Cancelled)
@@ -81,7 +128,16 @@
 
     private async Task OpenEditDialog(int id)
     {
-        var dialog = DialogService.Show<EditUserDialog>(Localizer["dialog-admin-edit-user"], new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialog = DialogService.Show<EditBrigadeDialog>("Edit brigade", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResult = await dialog.Result;
+
+        if(!dialogResult.Cancelled)
+            GetData();
+    }
+
+    private async Task OpenAddToBrigadeDialog(int id)
+    {
+        var dialog = DialogService.Show<AddToBrigadeDialog>("Add conductor to brigade", new DialogParameters { ["Id"] = id }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
         var dialogResult = await dialog.Result;
 
         if(!dialogResult.Cancelled)
@@ -90,13 +146,33 @@
 
     public async void OnDeleteClick(int id)
     {
-        var messageBox = await DialogService.ShowMessageBox(Localizer["title-admin-delete-user"], Localizer["message-admin-delete-user"], Localizer["text-global-yes"], Localizer["text-global-no"]);
+        var messageBox = await DialogService.ShowMessageBox("Delete brigade", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
 
         if(messageBox ?? false)
         {
             try
             {
-                await UserService.DeleteUser(id);
+                await ShiftService.DeleteBrigade(id);
+                Snackbar.Add(Localizer["snackbar-admin-delete-user-success"], Severity.Success);
+                GetData();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add(ex.Message, Severity.Error);
+                StateHasChanged();
+            }
+        }
+    }
+
+    public async void OnDeleteFromBrigadeClick(int brigadeId, int userId)
+    {
+        var messageBox = await DialogService.ShowMessageBox("Delete conductor from brigade", "Are you sure?", Localizer["text-global-yes"], Localizer["text-global-no"]);
+
+        if(messageBox ?? false)
+        {
+            try
+            {
+                await ShiftService.DeleteUserFromBrigade(brigadeId, userId);
                 Snackbar.Add(Localizer["snackbar-admin-delete-user-success"], Severity.Success);
                 GetData();
             }

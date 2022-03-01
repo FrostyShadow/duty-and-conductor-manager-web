@@ -10,6 +10,8 @@ public class Brigade
     public int SetId {get;set;}
     public int LineId {get;set;}
     public bool IsActive {get;set;}
+
+    public bool ShowDetails {get;set;} = false;
     
     public Set Set {get;set;}
     public Line Line {get;set;}
