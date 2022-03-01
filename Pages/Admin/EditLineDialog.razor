@@ -1,0 +1,81 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            @if (IsLoaded)
+            {
+                <div class="d-flex flex-column py-1">
+                    <MudTextField InputType="InputType.Text" Label='Line number' @bind-Value="model.Number" For="(() => model.Number)" />
+                    <MudSelect T="int" Label="Line type" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.LineTypeId" For="(() => model.LineTypeId)">
+                        @foreach (var lineType in model.LineTypes)
+                        {
+                            <MudSelectItem T="int" Value="@lineType.Id">@lineType.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudDatePicker Label="Active from" @bind-Date="model.StartDateTime" DateFormat="yyyy-MM-dd" />
+                    <MudDatePicker Label="Active to" @bind-Date="model.EndDateTime" DateFormat="yyyy-MM-dd" />
+                </div>
+            }
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+    [Parameter]
+    public int Id {get;set;}
+    public bool IsLoaded {get;set;} = false;
+
+    public class EditLineForm
+    {
+        public string Number {get;set;}
+        public IEnumerable<LineType> LineTypes {get;set;} = new List<LineType>();
+        public int LineTypeId {get;set;}
+        public DateTime? StartDateTime {get;set;}
+        public DateTime? EndDateTime {get;set;}
+    }
+
+    private EditLineForm model = new EditLineForm();
+
+
+    protected override async void OnInitialized()
+    {
+        model.LineTypes = new List<LineType>
+        {
+            new LineType
+            {
+                Id = 1,
+                Name = "Tram line"
+            },
+            new LineType
+            {
+                Id = 2,
+                Name = "Bus line"
+            }
+        };
+        
+        IsLoaded = true;
+        StateHasChanged();
+    }
+
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await LineService.EditLine(Id, model.Number, model.LineTypeId, model.StartDateTime ?? new DateTime(), model.EndDateTime ?? new DateTime());
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}
