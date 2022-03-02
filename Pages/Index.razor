@@ -1,6 +1,5 @@
 ﻿@page "/"
 @attribute [Authorize]
-@inject IAuthenticationService AuthenticationService
 
 <PageTitle>Dashboard</PageTitle>
 
@@ -16,9 +15,26 @@
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
-                <MudText Typo="Typo.body2">
-                    No announcements to display
-                </MudText>
+                <MudGrid>
+                    @if (!_announcements.Any())
+                    {
+                        <MudText Typo="Typo.body2">
+                            No announcements to display
+                        </MudText>
+                    }
+                    else
+                    {
+                        foreach (var announcement in _announcements.OrderByDescending(x => x.CreatedDateTime))
+                        {
+                            <AnnouncementDisplay 
+                                FirstName="@announcement.User.FirstName"
+                                LastName="@announcement.User.LastName"
+                                PublishDate="@announcement.CreatedDateTime"
+                                AnnouncementBody="@announcement.Message"
+                                Type="@announcement.AnnouncementType.Id" />
+                        }
+                    }
+                </MudGrid>
             </MudCardContent>
         </MudCard>
     </MudItem>
@@ -38,7 +54,33 @@
     </MudItem>
 </MudGrid>
 
+<MudOverlay Visible="_isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
+</MudOverlay>
+
 
 @code {
+    private IEnumerable<Announcement> _announcements = new List<Announcement>();
+    private bool _isVisible = false;
 
+    protected override async void OnInitialized()
+    {
+        _isVisible = true;
+        GetAnnouncements();
+        _isVisible = false;
+    }
+    
+    private async void GetAnnouncements()
+    {
+        try
+        {
+            _announcements = await AnnouncementService.GetAll();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            StateHasChanged();
+        }
+    }
 }

@@ -325,4 +325,8 @@
     <value>Edycja użytkownika</value>
     <comment/>
   </data>
+  <data name="nav-link-admin-announcement-list" xml:space="preserve">
+    <value>Lista ogłoszeń</value>
+    <comment/>
+  </data>
 </root>

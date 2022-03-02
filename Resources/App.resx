@@ -401,4 +401,40 @@
     <value>Edit user</value>
     <comment/>
   </data>
+  <data name="nav-link-admin-announcement-list" xml:space="preserve">
+    <value>Announcement list</value>
+    <comment/>
+  </data>
+  <data name="page-title-admin-announcement-list" xml:space="preserve">
+    <value>Announcement list</value>
+    <comment/>
+  </data>
+  <data name="button-admin-announcement-list-new-announcement" xml:space="preserve">
+    <value>New announcement</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creation-date" xml:space="preserve">
+    <value>Creation date</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creator-name" xml:space="preserve">
+    <value>Creator name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-message" xml:space="preserve">
+    <value>Message</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-type-name" xml:space="preserve">
+    <value>Announcement type</value>
+    <comment/>
+  </data>
+  <data name="text-admin-announcement-list-no-records" xml:space="preserve">
+    <value>No announcements found</value>
+    <comment/>
+  </data>
 </root>
