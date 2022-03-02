@@ -1,0 +1,67 @@
+<MudDialog>
+    <DialogContent>
+        <MudList>
+            <MudListItem>
+                <strong>Line number:</strong> @Shift.Line.Number
+            </MudListItem>
+            <MudListItem>
+                <strong>Brigade name:</strong> @Shift.Name
+            </MudListItem>
+            <MudListItem>
+                <strong>Vehicle set:</strong> @Shift.Set.Name
+            </MudListItem>
+            <MudListItem>
+                <strong>Shift manager:</strong> @(Shift.BrigadeUsers.FirstOrDefault(x => x.IsManager) == null ? "Shift manager not assigned" : Shift.BrigadeUsers.FirstOrDefault(x => x.IsManager).User.ToNameString())
+            </MudListItem>
+            <MudListItem>
+                <strong>Conductors:</strong>
+                <MudList>
+                    @foreach (var conductor in Shift.BrigadeUsers.Where(x => !x.IsManager))
+                    {
+                        <MudListItem>
+                            @conductor.User.ToNameString()
+                        </MudListItem>
+                    }
+                </MudList>
+            </MudListItem>
+        </MudList>
+    </DialogContent>
+    <DialogActions>
+        @if (Shift.BrigadeUsers.Count < Shift.ConductorLimit && !Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
+        {
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success">
+                Join shift as conductor
+            </MudButton>
+        }
+        @if (Shift.BrigadeUsers.Count < Shift.ConductorLimit && !Shift.BrigadeUsers.Any(x => x.IsManager) && !Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
+        {
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success">
+                Join shift as manager
+            </MudButton>
+        }
+        @if (Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
+        {
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Error">
+                Leave shift
+            </MudButton>
+        }
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary">
+            Close
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code{
+    [Parameter]
+    public Brigade Shift {get;set;}
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+
+    protected override void OnInitialized()
+    {
+        
+    }
+}
+
+

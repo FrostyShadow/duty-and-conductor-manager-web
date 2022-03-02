@@ -18,9 +18,11 @@
                 <MudGrid>
                     @if (!_announcements.Any())
                     {
-                        <MudText Typo="Typo.body2">
-                            No announcements to display
-                        </MudText>
+                        <MudItem md="12">
+                            <MudText Typo="Typo.body2">
+                                No announcements to display
+                            </MudText>
+                        </MudItem>
                     }
                     else
                     {
@@ -46,9 +48,20 @@
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
-                <MudText Typo="Typo.body2">
-                    No upcoming shifts
-                </MudText>
+                <MudGrid>
+                    @if (!_shifts.Any())
+                    {
+                        <MudItem md="12">
+                            <MudText Typo="Typo.body2">
+                                No upcoming shifts
+                            </MudText>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <ShiftDisplay Shifts="@_shifts" />
+                    }
+                </MudGrid>
             </MudCardContent>
         </MudCard>
     </MudItem>
@@ -61,12 +74,14 @@
 
 @code {
     private IEnumerable<Announcement> _announcements = new List<Announcement>();
+    private IEnumerable<Brigade> _shifts = new List<Brigade>();
     private bool _isVisible = false;
 
     protected override async void OnInitialized()
     {
         _isVisible = true;
         GetAnnouncements();
+        GetShifts();
         _isVisible = false;
     }
     
@@ -75,6 +90,20 @@
         try
         {
             _announcements = await AnnouncementService.GetAll();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            StateHasChanged();
+        }
+    }
+
+    private async void GetShifts()
+    {
+        try
+        {
+            _shifts = (await ShiftService.GetAll()).Where(x => x.IsActive && x.DateTimeFrom >= DateTime.Today && x.DateTimeFrom <= DateTime.Today.AddDays(7)).OrderBy(x => x.DateTimeFrom).ThenBy(x => x.Id).ToList();
             StateHasChanged();
         }
         catch (Exception ex)

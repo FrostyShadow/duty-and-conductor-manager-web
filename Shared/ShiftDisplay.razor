@@ -1,0 +1,32 @@
+<MudItem md="12">
+    <MudTable Items="@Shifts" Elevation="0" Striped="true" Hover="true" Outlined="true">
+        <HeaderContent>
+            <MudTh>Line number</MudTh>
+            <MudTh>Brigade name</MudTh>
+            <MudTh>From</MudTh>
+            <MudTh>To</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Line number">@context.Line.Number</MudTd>
+            <MudTd DataLabel="Brigade name">@context.Name</MudTd>
+            <MudTd DataLabel="From">@context.DateTimeFrom.ToString("yyyy-MM-dd HH:mm")</MudTd>
+            <MudTd DataLabel="To">@context.DateTimeTo.ToString("yyyy-MM-dd HH:mm")</MudTd>
+            <MudTd>
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Color="Color.Inherit" OnClick="(() => OpenDetailsDialog(context))">
+                    Show details
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudItem>
+
+@code{
+    [Parameter]
+    public IEnumerable<Brigade> Shifts {get;set;} = new List<Brigade>();
+
+    private async void OpenDetailsDialog(Brigade shift)
+    {
+        var dialog = DialogService.Show<ShiftDetailDialog>("Shift details", new DialogParameters { ["Shift"] = shift }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+    }
+}
