@@ -1,0 +1,68 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            @if (IsLoaded)
+            {
+                <div class="d-flex flex-column py-1">
+                    <MudSelect T="int" Label="Line type" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.UserId" For="(() => model.UserId)">
+                        @foreach (var user in model.Users)
+                        {
+                            <MudSelectItem T="int" Value="@user.Id">@user.FirstName @user.LastName</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudCheckBox Label="Is manager?" @bind-Checked="model.IsManager" />
+                </div>
+            }
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+    [Parameter]
+    public int Id {get;set;}
+    public bool IsLoaded {get;set;} = false;
+
+    public class AddToBrigadeForm
+    {
+        public IEnumerable<User> Users {get;set;} = new List<User>();
+        public int UserId {get;set;}
+        public bool IsManager {get;set;}
+    }
+
+    private AddToBrigadeForm model = new AddToBrigadeForm();
+
+
+    protected override async void OnInitialized()
+    {        
+        IsLoaded = true;
+        GetUsers();
+        StateHasChanged();
+    }
+
+    private async void GetUsers()
+    {
+        model.Users = await UserService.GetAll();
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await ShiftService.AddUserToBrigade(Id, model.UserId, model.IsManager);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}

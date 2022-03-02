@@ -1,0 +1,94 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            @if (IsLoaded)
+            {
+                <div class="d-flex flex-column py-1">
+                    <MudTextField InputType="InputType.Text" Label='Brigade name' @bind-Value="model.Name" For="(() => model.Name)" />
+                    <MudDatePicker Label="Active from date" @bind-Date="model.DateFrom" DateFormat="yyyy-MM-dd" />
+                    <MudTimePicker Label="Active from time" @bind-Time="model.TimeFrom" />
+                    <MudDatePicker Label="Active to date" @bind-Date="model.DateTo" DateFormat="yyyy-MM-dd" />
+                    <MudTimePicker Label="Active to time" @bind-Time="model.TimeTo" />
+                    <MudNumericField Min="0" Max="10" Step="1" Label="Conductor limit" @bind-Value="model.ConductorLimit" For="(() => model.ConductorLimit)" />
+                    <MudSelect T="int" Label="Vehicle set" AnchorOrigin="Origin.BottomCenter" @bind-Value="model.SetId" For="(() => model.SetId)">
+                        @foreach (var set in model.Sets)
+                        {
+                            <MudSelectItem T="int" Value="@set.Id">@set.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudSelect T="int" Label="Line number" AnchorOrigin="Origin.BottomCenter" @bind-Value="model.LineId" For="(() => model.LineId)">
+                        @foreach (var line in model.Lines)
+                        {
+                            <MudSelectItem T="int" Value="@line.Id">@line.Number</MudSelectItem>
+                        }
+                    </MudSelect>
+                    <MudCheckBox Label="Is active?" @bind-Checked="model.IsActive" For="(() => model.IsActive)" />
+                </div>
+            }
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Save</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">Reset form</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+    public bool IsLoaded {get;set;} = false;
+
+    public class AddBrigadeForm
+    {
+        public string Name {get;set;}
+        public DateTime? DateFrom {get;set;}
+        public TimeSpan? TimeFrom {get;set;}
+        public DateTime? DateTo {get;set;}
+        public TimeSpan? TimeTo {get;set;}
+        public int ConductorLimit {get;set;}
+        public IEnumerable<Set> Sets {get;set;} = new List<Set>();
+        public int SetId {get;set;}
+        public IEnumerable<Line> Lines {get;set;} = new List<Line>();
+        public int LineId {get;set;}
+        public bool IsActive {get;set;}
+
+
+    }
+
+    private AddBrigadeForm model = new AddBrigadeForm();
+
+
+    protected override async void OnInitialized()
+    {       
+        IsLoaded = true;
+        GetSets();
+        GetLines();
+        StateHasChanged();
+    }
+
+    private async void GetSets()
+    {
+        model.Sets = await VehicleService.GetAllSets();
+    }
+
+    private async void GetLines()
+    {
+        model.Lines = await LineService.GetAll();
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await ShiftService.AddBrigade(model.Name, model.DateFrom.Value.Add(model.TimeFrom.Value), model.DateTo.Value.Add(model.TimeTo.Value), model.ConductorLimit, model.SetId, model.LineId, model.IsActive);
+            Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}
