@@ -28,5 +28,14 @@
     private async void OpenDetailsDialog(Brigade shift)
     {
         var dialog = DialogService.Show<ShiftDetailDialog>("Shift details", new DialogParameters { ["Shift"] = shift }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResponse = await dialog.Result;
+        if (!dialogResponse.Cancelled)
+            GetData();
+    }
+
+    private async void GetData()
+    {
+        Shifts = (await ShiftService.GetAll()).Where(x => x.IsActive && x.DateTimeFrom >= DateTime.Today && x.DateTimeFrom <= DateTime.Today.AddDays(7)).OrderBy(x => x.DateTimeFrom).ThenBy(x => x.Id).ToList();
+        StateHasChanged();
     }
 }

@@ -29,23 +29,23 @@
     <DialogActions>
         @if (Shift.BrigadeUsers.Count < Shift.ConductorLimit && !Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
         {
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success">
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" OnClick="OnJoinConductorClick">
                 Join shift as conductor
             </MudButton>
         }
         @if (Shift.BrigadeUsers.Count < Shift.ConductorLimit && !Shift.BrigadeUsers.Any(x => x.IsManager) && !Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
         {
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success">
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Success" OnClick="OnJoinManagerClick">
                 Join shift as manager
             </MudButton>
         }
         @if (Shift.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
         {
-            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Error">
+            <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Error" OnClick="OnLeaveClick">
                 Leave shift
             </MudButton>
         }
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary">
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Secondary" OnClick="OnCloseDialogClick">
             Close
         </MudButton>
     </DialogActions>
@@ -57,10 +57,54 @@
     [CascadingParameter]
     MudDialogInstance MudDialog {get;set;}
 
-
-    protected override void OnInitialized()
+    public async void OnJoinConductorClick()
     {
-        
+        try
+        {
+            await ShiftService.AddUserToBrigade(Shift.Id, AuthenticationService.User.Id, false);
+            Snackbar.Add("You joined a shift as a conductor", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Close();
+        }
+    }
+
+    public async void OnJoinManagerClick()
+    {
+        try
+        {
+            await ShiftService.AddUserToBrigade(Shift.Id, AuthenticationService.User.Id, true);
+            Snackbar.Add("You joined a shift as a manager", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Close();
+        }
+    }
+
+    public async void OnLeaveClick()
+    {
+        try
+        {
+            await ShiftService.DeleteUserFromBrigade(Shift.Id, AuthenticationService.User.Id);
+            Snackbar.Add("You left a shift", Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Close();
+        }
+    }
+
+    public void OnCloseDialogClick()
+    {
+        MudDialog.Cancel();
     }
 }
 
