@@ -1,0 +1,132 @@
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h6">
+            @CalendarDate.ToString("MMMM yyyy")
+        </MudText>
+    </MudCardHeader>
+    <MudCardContent>        
+        <MudSimpleTable>
+            <thead>
+                <tr>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr>
+                    @for (var a = 1; a < dayOfWeekFirst; a++)
+                    {
+                        <td></td>
+                    }
+
+                    @for (var i = 1; i <= daysInMonth; i++)
+                    {
+                        var renderedDay = new DateTime(CalendarDate.Year, CalendarDate.Month, i);
+
+                        if (renderedDay.Date == DateTime.Today && renderedDay.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            <td>@i</td>@:</tr><tr>
+                        }
+                        else if (renderedDay.Date < DateTime.Today && renderedDay.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            <td>@i</td>@:</tr><tr>
+                        }
+                        else if (renderedDay.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            <td>@i</td>@:</tr><tr>
+                        }
+                        else if (renderedDay.Date == DateTime.Today)
+                        {
+                            <td>
+                                @i
+                            </td>
+                        }
+                        else if (renderedDay.Date < DateTime.Today)
+                        {
+                            <td>
+                                @i
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @i
+                            </td>
+                        }
+                    }
+
+                    @for (var a = 1; a <= 7-dayOfWeekLast; a++)
+                    {
+                        <td></td>
+                    }
+                </tr>-->
+                
+                @for (var i = 0; i < 6; i++)
+                {
+                    <tr>
+                        @for (var j = 0; j < 7; j++)
+                        {
+                            @if (dayList[i][j] == 0)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td>1</td>
+                            }
+                        }
+                    </tr>
+                }
+
+            </tbody>
+        </MudSimpleTable>
+        <MudAlert Variant="Variant.Filled" Severity="Severity.Info">
+            Calendar date = @CalendarDate <br />
+            First day of month = @firstDayOfMonth <br />
+            Days in month = @daysInMonth <br />
+            Last day of month = @lastDayOfMonth <br />
+            <br />
+            Day of week first = @dayOfWeekFirst <br />
+            Day of week last = @dayOfWeekLast <br />
+        </MudAlert>
+    </MudCardContent>
+</MudCard>
+
+
+
+@code{
+    [Parameter]
+    public DateTime CalendarDate {get;set;}
+
+    private DateTime firstDayOfMonth {get; set;}
+    private int daysInMonth {get;set;}
+    private DateTime lastDayOfMonth {get;set;}
+
+    private int dayOfWeekFirst {get;set;}
+    private int dayOfWeekLast {get;set;}
+
+    private int[][] dayList {get;set;} = new int[6][] { new int[7], new int[7], new int[7], new int[7], new int[7], new int[7] };
+
+    protected override void OnInitialized()
+    {
+        firstDayOfMonth = new DateTime(CalendarDate.Year, CalendarDate.Month, 1);
+        daysInMonth = DateTime.DaysInMonth(CalendarDate.Year, CalendarDate.Month);
+        lastDayOfMonth = new DateTime(CalendarDate.Year, CalendarDate.Month, daysInMonth);
+
+        dayOfWeekFirst = (int) firstDayOfMonth.DayOfWeek > 0 ? (int) firstDayOfMonth.DayOfWeek : 7;
+        dayOfWeekLast = (int) lastDayOfMonth.DayOfWeek > 0 ? (int) lastDayOfMonth.DayOfWeek : 7;
+
+        for (var i = 0; i < 6; i++)
+        {
+            for (var j = 0; j < 7; j++)
+            {
+                dayList[i][j] = j;
+            }
+        }
+    }
+}

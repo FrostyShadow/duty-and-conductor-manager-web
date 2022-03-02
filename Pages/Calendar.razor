@@ -1,0 +1,15 @@
+@page "/calendar"
+@attribute [Authorize]
+
+<MudGrid>
+    <MudItem md="6">
+        <CalendarDisplay CalendarDate="@Test" />
+    </MudItem>
+    <MudItem md="6">
+        <CalendarDisplay CalendarDate="@(Test.AddMonths(1))" />
+    </MudItem>
+</MudGrid>
+
+@code{
+    public DateTime Test {get;set;} = DateTime.UtcNow;
+}
