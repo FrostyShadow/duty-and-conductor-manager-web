@@ -325,4 +325,168 @@
     <value>Edycja użytkownika</value>
     <comment/>
   </data>
+  <data name="nav-link-admin-announcement-list" xml:space="preserve">
+    <value>Lista ogłoszeń</value>
+    <comment/>
+  </data>
+  <data name="button-admin-announcement-list-new-announcement" xml:space="preserve">
+    <value>Nowe ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creation-date" xml:space="preserve">
+    <value>Data utworzenia</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creator-name" xml:space="preserve">
+    <value>Autor</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-message" xml:space="preserve">
+    <value>Treść ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-type-name" xml:space="preserve">
+    <value>Typ ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="text-admin-announcement-list-no-records" xml:space="preserve">
+    <value>Nie znaleziono ogłoszeń</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-announcement-message" xml:space="preserve">
+    <value>Treść ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-announcement-type" xml:space="preserve">
+    <value>Typ ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-announcement-submit" xml:space="preserve">
+    <value>Utwórz ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-announcement-error-announcement-data" xml:space="preserve">
+    <value>Błąd podczas pobierania danych z ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-add-announcement-success" xml:space="preserve">
+    <value>Ogłoszenie dodano porawnie</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-announcement-success" xml:space="preserve">
+    <value>Ogłoszenie zapisano poprawnie</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-add-announcement" xml:space="preserve">
+    <value>Dodaj nowe ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-edit-announcement" xml:space="preserve">
+    <value>Edytuj ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="title-admin-delete-announcement" xml:space="preserve">
+    <value>Usuń ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="message-admin-delete-announcement" xml:space="preserve">
+    <value>Czy jesteś pewny?</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-delete-announcement-success" xml:space="preserve">
+    <value>Ogłoszenie usunięto poprawnie</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-announcement-submit" xml:space="preserve">
+    <value>Zapisz ogłoszenie</value>
+    <comment/>
+  </data>
+  <data name="nav-group-vehicle-management" xml:space="preserve">
+    <value>Zarządzanie pojazdami</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-vehicle-list" xml:space="preserve">
+    <value>Lista pojazdów</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-model-list" xml:space="preserve">
+    <value>Lista modeli pojazdów</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-manufacturer-list" xml:space="preserve">
+    <value>Lista producentów pojazdów</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-set-list" xml:space="preserve">
+    <value>Lista zestawów pojazdów</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-line-list" xml:space="preserve">
+    <value>Lista linii</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-brigade-list" xml:space="preserve">
+    <value>Lista służb</value>
+    <comment/>
+  </data>
+  <data name="shift-display-line-number" xml:space="preserve">
+    <value>Numer linii</value>
+    <comment/>
+  </data>
+  <data name="shift-display-brigade-name" xml:space="preserve">
+    <value>Brygada</value>
+    <comment/>
+  </data>
+  <data name="shift-display-from" xml:space="preserve">
+    <value>Od</value>
+    <comment/>
+  </data>
+  <data name="shift-display-to" xml:space="preserve">
+    <value>Do</value>
+    <comment/>
+  </data>
+  <data name="button-shift-display-show-details" xml:space="preserve">
+    <value>Pokaż szczegóły</value>
+    <comment/>
+  </data>
+  <data name="announcement-published-on" xml:space="preserve">
+    <value>Utworzono</value>
+    <comment/>
+  </data>
+  <data name="announcement-info" xml:space="preserve">
+    <value>Informacja</value>
+    <comment/>
+  </data>
+  <data name="announcement-important" xml:space="preserve">
+    <value>Ważne</value>
+    <comment/>
+  </data>
+  <data name="dashboard-title" xml:space="preserve">
+    <value>Panel główny</value>
+    <comment/>
+  </data>
+  <data name="dashboard-hello" xml:space="preserve">
+    <value>Cześć</value>
+    <comment/>
+  </data>
+  <data name="dashboard-announcements" xml:space="preserve">
+    <value>Ogłoszenia</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-announcements" xml:space="preserve">
+    <value>Brak ogłoszeń do wyświetlenia</value>
+    <comment/>
+  </data>
+  <data name="dashboard-upcoming-shifts" xml:space="preserve">
+    <value>Nadchodzące służby</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-shifts" xml:space="preserve">
+    <value>Brak służb do wyświetlenia</value>
+    <comment/>
+  </data>
 </root>

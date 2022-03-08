@@ -1,34 +1,41 @@
 ﻿@page "/"
 @attribute [Authorize]
-@inject IAuthenticationService AuthenticationService
 
-<PageTitle>Dashboard</PageTitle>
+<PageTitle>@Localizer["dashboard-title"]</PageTitle>
 
 <MudGrid>
     <MudItem xs="12">
-        <MudText Typo="Typo.h4">Hello, @AuthenticationService.User.FirstName!</MudText>
+        <MudText Typo="Typo.h4">@Localizer["dashboard-hello"], @AuthenticationService.User.FirstName!</MudText>
     </MudItem>
     <MudItem xs="12" md="6">
         <MudCard>
             <MudCardHeader>
                 <MudText Typo="Typo.h6">
-                    Announcements
+                    @Localizer["dashboard-announcements"]
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
                 <MudGrid>
-                    <Announcement 
-                        FirstName="Test" 
-                        LastName="Admin" 
-                        PublishDate="@(new DateTime(2021,11,8,14,00,00))" 
-                        Type="AnnouncementType.Info" 
-                        AnnouncementBody="This is a test info announcement!"  />
-                    <Announcement 
-                        FirstName="Test" 
-                        LastName="Admin" 
-                        PublishDate="@(new DateTime(2021,11,8,13,00,00))" 
-                        Type="AnnouncementType.Important" 
-                        AnnouncementBody="This is a test important announcement!"  />
+                    @if (!_announcements.Any())
+                    {
+                        <MudItem md="12">
+                            <MudText Typo="Typo.body2">
+                                @Localizer["dashboard-no-announcements"]
+                            </MudText>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        foreach (var announcement in _announcements.OrderByDescending(x => x.CreatedDateTime))
+                        {
+                            <AnnouncementDisplay 
+                                FirstName="@announcement.User.FirstName"
+                                LastName="@announcement.User.LastName"
+                                PublishDate="@announcement.CreatedDateTime"
+                                AnnouncementBody="@announcement.Message"
+                                Type="@announcement.AnnouncementType.Id" />
+                        }
+                    }
                 </MudGrid>
             </MudCardContent>
         </MudCard>
@@ -37,14 +44,72 @@
         <MudCard>
             <MudCardHeader>
                 <MudText Typo="Typo.h6">
-                    Upcomming shifts
+                    @Localizer["dashboard-upcoming-shifts"]
                 </MudText>
             </MudCardHeader>
             <MudCardContent>
-                <MudText Typo="Typo.body2">
-                    No upcomming shifts
-                </MudText>
+                <MudGrid>
+                    @if (!_shifts.Any())
+                    {
+                        <MudItem md="12">
+                            <MudText Typo="Typo.body2">
+                                @Localizer["dashboard-no-shifts"]
+                            </MudText>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <ShiftDisplay Shifts="@_shifts" />
+                    }
+                </MudGrid>
             </MudCardContent>
         </MudCard>
     </MudItem>
 </MudGrid>
+
+<MudOverlay Visible="_isVisible" DarkBackground="true" ZIndex="9999">
+    <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
+</MudOverlay>
+
+
+@code {
+    private IEnumerable<Announcement> _announcements = new List<Announcement>();
+    private IEnumerable<Brigade> _shifts = new List<Brigade>();
+    private bool _isVisible = false;
+
+    protected override async void OnInitialized()
+    {
+        _isVisible = true;
+        GetAnnouncements();
+        GetShifts();
+        _isVisible = false;
+    }
+    
+    private async void GetAnnouncements()
+    {
+        try
+        {
+            _announcements = await AnnouncementService.GetAll();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            StateHasChanged();
+        }
+    }
+
+    private async void GetShifts()
+    {
+        try
+        {
+            _shifts = (await ShiftService.GetAll()).Where(x => x.IsActive && x.DateTimeFrom >= DateTime.Today && x.DateTimeFrom <= DateTime.Today.AddDays(7)).OrderBy(x => x.DateTimeFrom).ThenBy(x => x.Id).ToList();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            StateHasChanged();
+        }
+    }
+}

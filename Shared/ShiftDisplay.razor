@@ -1,0 +1,64 @@
+@inject IAuthenticationService AuthenticationService
+@inject ILocalStorageService LocalStorageService
+@inject IThemeLibrary ThemeLibrary
+
+<MudItem md="12">
+    <MudTable Items="@Shifts" Elevation="0" Striped="true" Hover="true" Outlined="true" RowStyleFunc="ShiftAssigned">
+        <HeaderContent>
+            <MudTh>@Localizer["shift-display-line-number"]</MudTh>
+            <MudTh>@Localizer["shift-display-brigade-name"]</MudTh>
+            <MudTh>@Localizer["shift-display-from"]</MudTh>
+            <MudTh>@Localizer["shift-display-to"]</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Line number">@context.Line.Number</MudTd>
+            <MudTd DataLabel="Brigade name">@context.Name</MudTd>
+            <MudTd DataLabel="From">@context.DateTimeFrom.ToString("yyyy-MM-dd HH:mm")</MudTd>
+            <MudTd DataLabel="To">@context.DateTimeTo.ToString("yyyy-MM-dd HH:mm")</MudTd>
+            <MudTd>
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Text" Color="Color.Inherit" OnClick="(() => OpenDetailsDialog(context))">
+                    @Localizer["button-shift-display-show-details"]
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudItem>
+
+@code{
+    [Parameter]
+    public IEnumerable<Brigade> Shifts {get;set;} = new List<Brigade>();
+
+    private MudTheme currentTheme = new MudTheme();
+
+    protected override async void OnInitialized()
+    {
+        currentTheme = (await LocalStorageService.GetItem<bool>("darkMode")) ? ThemeLibrary.DarkTheme : ThemeLibrary.LightTheme;
+    }
+
+    private async void OpenDetailsDialog(Brigade shift)
+    {
+        var dialog = DialogService.Show<ShiftDetailDialog>("Shift details", new DialogParameters { ["Shift"] = shift }, new DialogOptions {MaxWidth = MaxWidth.Medium, FullWidth = true });
+        var dialogResponse = await dialog.Result;
+        if (!dialogResponse.Cancelled)
+            GetData();
+    }
+
+    private async void GetData()
+    {
+        Shifts = (await ShiftService.GetAll()).Where(x => x.IsActive && x.DateTimeFrom >= DateTime.Today && x.DateTimeFrom <= DateTime.Today.AddDays(7)).OrderBy(x => x.DateTimeFrom).ThenBy(x => x.Id).ToList();
+        StateHasChanged();
+    }
+
+    private string ShiftAssigned(Brigade arg1, int index)
+    {
+        if (arg1.BrigadeUsers.Any(x => x.UserId == AuthenticationService.User.Id))
+        {
+            return currentTheme == ThemeLibrary.DarkTheme ? $"background-color: {Colors.Blue.Darken1}" : $"background-color: {Colors.Blue.Accent1}";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+}

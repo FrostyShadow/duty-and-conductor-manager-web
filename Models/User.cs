@@ -14,4 +14,9 @@ public class User
     public string? PhoneNumber {get;set;}
     public string? Photo {get;set;}
     public string Token {get;set;}
+
+    public string ToNameString()
+    {
+        return $"{FirstName} {LastName}";
+    }
 }

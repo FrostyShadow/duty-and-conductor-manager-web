@@ -1,0 +1,83 @@
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudDialog>
+        <DialogContent>
+            <div class="d-flex flex-column py-1">
+                <MudTextField InputType="InputType.Text" Lines="3" Counter="250" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label='@Localizer["label-admin-add-announcement-message"]' @bind-Value="model.Message" For="(() => model.Message)" />
+                <MudSelect T="int" Label='@Localizer["label-admin-add-announcement-type"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.AnnouncementTypeId" For="(() => model.AnnouncementTypeId)">
+                    <MudSelectItem Value="1">Info</MudSelectItem>
+                    <MudSelectItem Value="2">Important</MudSelectItem>
+                </MudSelect>
+            </div>
+        </DialogContent>
+        <DialogActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">@Localizer["button-admin-edit-announcement-submit"]</MudButton>
+            <MudButton ButtonType="ButtonType.Reset" Variant="Variant.Filled" Color="Color.Secondary">@Localizer["button-global-clear"]</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+
+@code
+{
+    [CascadingParameter]
+    MudDialogInstance MudDialog {get;set;}
+
+    [Parameter]
+    public int Id {get;set;}
+
+    public class EditAnnouncementForm
+    {
+        public int EditorId {get;set;}
+        public string Message {get;set;}
+        public int AnnouncementTypeId {get;set;}
+    }
+
+    private EditAnnouncementForm model = new EditAnnouncementForm();
+
+    protected override async void OnInitialized()
+    {
+        model = new EditAnnouncementForm
+        {
+            EditorId = AuthenticationService.User.Id
+        };
+        GetData();
+    }
+
+    private async void GetData()
+    {
+        var announcement = await AnnouncementService.GetById(Id);
+
+        if (announcement == null)
+        {
+            Snackbar.Add(Localizer["snackbar-admin-edit-announcement-error-announcement-data"], Severity.Error);
+            MudDialog.Close();
+            return;
+        }
+
+        model.Message = announcement.Message;
+        model.AnnouncementTypeId = announcement.AnnouncementType.Id;
+        StateHasChanged();
+    }
+
+    private IEnumerable<string> MaxCharacters(string ch)
+    {
+        if (!string.IsNullOrEmpty(ch) && 25 < ch?.Length)
+            yield return "Max 25 characters";
+    }
+
+    private async void OnValidSubmit()
+    {
+        try
+        {
+            await AnnouncementService.EditAnnouncement(Id, model.EditorId, model.Message, model.AnnouncementTypeId);
+            Snackbar.Add(@Localizer["snackbar-admin-edit-announcement-success"], Severity.Success);
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+            MudDialog.Cancel();
+        }
+    }
+}

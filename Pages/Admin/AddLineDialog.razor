@@ -6,10 +6,10 @@
             {
                 <div class="d-flex flex-column py-1">
                     <MudTextField InputType="InputType.Text" Label='Line number' @bind-Value="model.Number" For="(() => model.Number)" />
-                    <MudSelect T="int" Label="Line type" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.LineTypeId" For="(() => model.LineTypeId)">
+                    <MudSelect T="int?" Label="Line type" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.LineTypeId" For="(() => model.LineTypeId)">
                         @foreach (var lineType in model.LineTypes)
                         {
-                            <MudSelectItem T="int" Value="@lineType.Id">@lineType.Name</MudSelectItem>
+                            <MudSelectItem T="int?" Value="@lineType.Id">@lineType.Name</MudSelectItem>
                         }
                     </MudSelect>
                     <MudDatePicker Label="Active from" @bind-Date="model.StartDateTime" DateFormat="yyyy-MM-dd" />
@@ -33,7 +33,7 @@
     {
         public string Number {get;set;}
         public IEnumerable<LineType> LineTypes {get;set;} = new List<LineType>();
-        public int LineTypeId {get;set;}
+        public int? LineTypeId {get;set;}
         public DateTime? StartDateTime {get;set;}
         public DateTime? EndDateTime {get;set;}
     }
@@ -66,7 +66,7 @@
     {
         try
         {
-            await LineService.AddLine(model.Number, model.LineTypeId, model.StartDateTime ?? new DateTime(), model.EndDateTime ?? new DateTime());
+            await LineService.AddLine(model.Number, model.LineTypeId ?? 0, model.StartDateTime ?? new DateTime(), model.EndDateTime ?? new DateTime());
             Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }

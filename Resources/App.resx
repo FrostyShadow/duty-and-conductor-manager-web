@@ -189,7 +189,7 @@
     <value>Add user</value>
     <comment/>
   </data>
-  <data name="button-admin-add-user-reset" xml:space="preserve">
+  <data name="button-global-clear" xml:space="preserve">
     <value>Clear form</value>
     <comment/>
   </data>
@@ -399,6 +399,174 @@
   </data>
   <data name="dialog-admin-edit-user" xml:space="preserve">
     <value>Edit user</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-announcement-list" xml:space="preserve">
+    <value>Announcement list</value>
+    <comment/>
+  </data>
+  <data name="page-title-admin-announcement-list" xml:space="preserve">
+    <value>Announcement list</value>
+    <comment/>
+  </data>
+  <data name="button-admin-announcement-list-new-announcement" xml:space="preserve">
+    <value>New announcement</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-id" xml:space="preserve">
+    <value>Id</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creation-date" xml:space="preserve">
+    <value>Creation date</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-creator-name" xml:space="preserve">
+    <value>Creator name</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-message" xml:space="preserve">
+    <value>Message</value>
+    <comment/>
+  </data>
+  <data name="th-admin-announcement-list-type-name" xml:space="preserve">
+    <value>Announcement type</value>
+    <comment/>
+  </data>
+  <data name="text-admin-announcement-list-no-records" xml:space="preserve">
+    <value>No announcements found</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-announcement-message" xml:space="preserve">
+    <value>Announcement message</value>
+    <comment/>
+  </data>
+  <data name="label-admin-add-announcement-type" xml:space="preserve">
+    <value>Announcement type</value>
+    <comment/>
+  </data>
+  <data name="button-admin-add-announcement-submit" xml:space="preserve">
+    <value>Create announcement</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-announcement-error-announcement-data" xml:space="preserve">
+    <value>Error occured while trying to fetch the announcement</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-add-announcement-success" xml:space="preserve">
+    <value>Announcement added successfully</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-edit-announcement-success" xml:space="preserve">
+    <value>Announcement saved successfully</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-add-announcement" xml:space="preserve">
+    <value>Add new announcement</value>
+    <comment/>
+  </data>
+  <data name="dialog-admin-edit-announcement" xml:space="preserve">
+    <value>Edit announcement</value>
+    <comment/>
+  </data>
+  <data name="title-admin-delete-announcement" xml:space="preserve">
+    <value>Delete announcement</value>
+    <comment/>
+  </data>
+  <data name="message-admin-delete-announcement" xml:space="preserve">
+    <value>Are you sure?</value>
+    <comment/>
+  </data>
+  <data name="snackbar-admin-delete-announcement-success" xml:space="preserve">
+    <value>Announcement deleted successfully</value>
+    <comment/>
+  </data>
+  <data name="button-admin-edit-announcement-submit" xml:space="preserve">
+    <value>Save announcement</value>
+    <comment/>
+  </data>
+  <data name="nav-group-vehicle-management" xml:space="preserve">
+    <value>Vehicle management</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-vehicle-list" xml:space="preserve">
+    <value>Vehicle list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-model-list" xml:space="preserve">
+    <value>Vehicle model list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-manufacturer-list" xml:space="preserve">
+    <value>Vehicle manufacturer list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-set-list" xml:space="preserve">
+    <value>Vehicle set list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-line-list" xml:space="preserve">
+    <value>Line list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-brigade-list" xml:space="preserve">
+    <value>Shift list</value>
+    <comment/>
+  </data>
+  <data name="shift-display-line-number" xml:space="preserve">
+    <value>Line number</value>
+    <comment/>
+  </data>
+  <data name="shift-display-brigade-name" xml:space="preserve">
+    <value>Brigade name</value>
+    <comment/>
+  </data>
+  <data name="shift-display-from" xml:space="preserve">
+    <value>From</value>
+    <comment/>
+  </data>
+  <data name="shift-display-to" xml:space="preserve">
+    <value>To</value>
+    <comment/>
+  </data>
+  <data name="button-shift-display-show-details" xml:space="preserve">
+    <value>Show details</value>
+    <comment/>
+  </data>
+  <data name="announcement-published-on" xml:space="preserve">
+    <value>Published on</value>
+    <comment/>
+  </data>
+  <data name="announcement-info" xml:space="preserve">
+    <value>Info</value>
+    <comment/>
+  </data>
+  <data name="announcement-important" xml:space="preserve">
+    <value>Important</value>
+    <comment/>
+  </data>
+  <data name="dashboard-title" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="dashboard-hello" xml:space="preserve">
+    <value>Hello</value>
+    <comment/>
+  </data>
+  <data name="dashboard-announcements" xml:space="preserve">
+    <value>Announcements</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-announcements" xml:space="preserve">
+    <value>No announcements to display</value>
+    <comment/>
+  </data>
+  <data name="dashboard-upcoming-shifts" xml:space="preserve">
+    <value>Upcoming shifts</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-shifts" xml:space="preserve">
+    <value>No shifts to display</value>
     <comment/>
   </data>
 </root>

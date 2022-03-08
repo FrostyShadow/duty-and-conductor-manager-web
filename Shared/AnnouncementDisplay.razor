@@ -1,21 +1,21 @@
 <MudItem xs="12">
-    <MudCard Elevation="1">
+    <MudCard Outlined="true">
         <MudCardHeader>
             <CardHeaderAvatar>
                 <MudAvatar Color="Color.Primary">@FirstName[0]@LastName[0]</MudAvatar>
             </CardHeaderAvatar>
             <CardHeaderContent>
                 <MudText Typo="Typo.body1">@FirstName @LastName</MudText>
-                <MudText Typo="Typo.body2">Published on @PublishDate.ToString("yyyy-MM-dd HH:mm")</MudText>
+                <MudText Typo="Typo.body2">@Localizer["announcement-published-on"] @PublishDate.ToString("yyyy-MM-dd HH:mm")</MudText>
             </CardHeaderContent>
             <CardHeaderActions>
                 @switch(Type)
                 {
-                    case AnnouncementType.Info:
-                        <MudChip Color="Color.Info">Info</MudChip>
+                    case 1:
+                        <MudChip Color="Color.Info">@Localizer["announcement-info"]</MudChip>
                         break;
                     default:
-                        <MudChip Color="Color.Error">Important</MudChip>
+                        <MudChip Color="Color.Error">@Localizer["announcement-important"]</MudChip>
                         break;
                 }
             </CardHeaderActions>
@@ -36,7 +36,7 @@
     [Parameter]
     public DateTime PublishDate {get;set;}
     [Parameter]
-    public AnnouncementType Type {get;set;}
+    public int Type {get;set;}
     [Parameter]
     public string AnnouncementBody {get;set;}
 }

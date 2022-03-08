@@ -1,6 +1,6 @@
 namespace DutyAndConductorManager.Web.Helpers;
 
-public enum AnnouncementType
+public enum AnnouncementTypes
 {
     Info,
     Important
