@@ -4,9 +4,9 @@
         <DialogContent>
             <div class="d-flex flex-column py-1">
                 <MudTextField InputType="InputType.Text" Lines="3" Counter="250" Immediate="true" Validation="@(new Func<string, IEnumerable<string>>(MaxCharacters))" Label='@Localizer["label-admin-add-announcement-message"]' @bind-Value="model.Message" For="(() => model.Message)" />
-                <MudSelect T="int" Label='@Localizer["label-admin-add-announcement-type"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.AnnouncementTypeId" For="(() => model.AnnouncementTypeId)">
-                    <MudSelectItem Value="1">Info</MudSelectItem>
-                    <MudSelectItem Value="2">Important</MudSelectItem>
+                <MudSelect T="int?" Label='@Localizer["label-admin-add-announcement-type"]' AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.AnnouncementTypeId" For="(() => model.AnnouncementTypeId)">
+                    <MudSelectItem T="int?" Value="1">Info</MudSelectItem>
+                    <MudSelectItem T="int?" Value="2">Important</MudSelectItem>
                 </MudSelect>
             </div>
         </DialogContent>
@@ -26,7 +26,7 @@
     {
         public int CreatorId {get;set;}
         public string Message {get;set;}
-        public int AnnouncementTypeId {get;set;}
+        public int? AnnouncementTypeId {get;set;}
     }
 
     private AddAnnouncementForm model = new AddAnnouncementForm();
@@ -49,7 +49,7 @@
     {
         try
         {
-            await AnnouncementService.AddAnnouncement(model.CreatorId, model.Message, model.AnnouncementTypeId);
+            await AnnouncementService.AddAnnouncement(model.CreatorId, model.Message, model.AnnouncementTypeId ?? 0);
             Snackbar.Add(@Localizer["snackbar-admin-add-announcement-success"], Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }

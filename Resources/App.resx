@@ -485,4 +485,88 @@
     <value>Save announcement</value>
     <comment/>
   </data>
+  <data name="nav-group-vehicle-management" xml:space="preserve">
+    <value>Vehicle management</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-vehicle-list" xml:space="preserve">
+    <value>Vehicle list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-model-list" xml:space="preserve">
+    <value>Vehicle model list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-manufacturer-list" xml:space="preserve">
+    <value>Vehicle manufacturer list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-set-list" xml:space="preserve">
+    <value>Vehicle set list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-line-list" xml:space="preserve">
+    <value>Line list</value>
+    <comment/>
+  </data>
+  <data name="nav-link-admin-brigade-list" xml:space="preserve">
+    <value>Shift list</value>
+    <comment/>
+  </data>
+  <data name="shift-display-line-number" xml:space="preserve">
+    <value>Line number</value>
+    <comment/>
+  </data>
+  <data name="shift-display-brigade-name" xml:space="preserve">
+    <value>Brigade name</value>
+    <comment/>
+  </data>
+  <data name="shift-display-from" xml:space="preserve">
+    <value>From</value>
+    <comment/>
+  </data>
+  <data name="shift-display-to" xml:space="preserve">
+    <value>To</value>
+    <comment/>
+  </data>
+  <data name="button-shift-display-show-details" xml:space="preserve">
+    <value>Show details</value>
+    <comment/>
+  </data>
+  <data name="announcement-published-on" xml:space="preserve">
+    <value>Published on</value>
+    <comment/>
+  </data>
+  <data name="announcement-info" xml:space="preserve">
+    <value>Info</value>
+    <comment/>
+  </data>
+  <data name="announcement-important" xml:space="preserve">
+    <value>Important</value>
+    <comment/>
+  </data>
+  <data name="dashboard-title" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment/>
+  </data>
+  <data name="dashboard-hello" xml:space="preserve">
+    <value>Hello</value>
+    <comment/>
+  </data>
+  <data name="dashboard-announcements" xml:space="preserve">
+    <value>Announcements</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-announcements" xml:space="preserve">
+    <value>No announcements to display</value>
+    <comment/>
+  </data>
+  <data name="dashboard-upcoming-shifts" xml:space="preserve">
+    <value>Upcoming shifts</value>
+    <comment/>
+  </data>
+  <data name="dashboard-no-shifts" xml:space="preserve">
+    <value>No shifts to display</value>
+    <comment/>
+  </data>
 </root>

@@ -4,10 +4,10 @@
         <DialogContent>
             <div class="d-flex flex-column py-1">
                 <MudTextField InputType="InputType.Text" Label='Side number' @bind-Value="model.SideNumber" For="(() => model.SideNumber)" />
-                <MudSelect T="int" Label="Model" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.ModelId" For="(() => model.ModelId)">
+                <MudSelect T="int?" Label="Model" AnchorOrigin="Origin.BottomCenter" @bind-Value="@model.ModelId" For="(() => model.ModelId)">
                     @foreach(var model in model.Models)
                     {
-                        <MudSelectItem T="int" Value="@model.Id">@model.ToString()</MudSelectItem>
+                        <MudSelectItem T="int?" Value="@model.Id">@model.ToString()</MudSelectItem>
                     }
                 </MudSelect>
             </div>
@@ -26,7 +26,7 @@
     public class AddVehicleForm
     {
         public IEnumerable<VehicleModel> Models {get;set;} = new List<VehicleModel>();
-        public int ModelId {get;set;}
+        public int? ModelId {get;set;}
         public string SideNumber {get;set;}
     }
 
@@ -49,7 +49,7 @@
     {
         try
         {
-            await VehicleService.AddVehicle(model.ModelId, model.SideNumber);
+            await VehicleService.AddVehicle(model.ModelId ?? 0, model.SideNumber);
             Snackbar.Add(@Localizer["snackbar-admin-add-user-success"], Severity.Success);
             MudDialog.Close(DialogResult.Ok(true));
         }

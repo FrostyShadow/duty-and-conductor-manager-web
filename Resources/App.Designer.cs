@@ -76,6 +76,33 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Important.
+        /// </summary>
+        public static string announcement_important {
+            get {
+                return ResourceManager.GetString("announcement-important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string announcement_info {
+            get {
+                return ResourceManager.GetString("announcement-info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published on.
+        /// </summary>
+        public static string announcement_published_on {
+            get {
+                return ResourceManager.GetString("announcement-published-on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conductor Service Manager.
         /// </summary>
         public static string app_name {
@@ -175,6 +202,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show details.
+        /// </summary>
+        public static string button_shift_display_show_details {
+            get {
+                return ResourceManager.GetString("button-shift-display-show-details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot password.
         /// </summary>
         public static string button_sign_in_forgot_password {
@@ -189,6 +225,60 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string button_sign_in_submit {
             get {
                 return ResourceManager.GetString("button-sign-in-submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Announcements.
+        /// </summary>
+        public static string dashboard_announcements {
+            get {
+                return ResourceManager.GetString("dashboard-announcements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        public static string dashboard_hello {
+            get {
+                return ResourceManager.GetString("dashboard-hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No announcements to display.
+        /// </summary>
+        public static string dashboard_no_announcements {
+            get {
+                return ResourceManager.GetString("dashboard-no-announcements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No shifts to display.
+        /// </summary>
+        public static string dashboard_no_shifts {
+            get {
+                return ResourceManager.GetString("dashboard-no-shifts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        public static string dashboard_title {
+            get {
+                return ResourceManager.GetString("dashboard-title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upcoming shifts.
+        /// </summary>
+        public static string dashboard_upcoming_shifts {
+            get {
+                return ResourceManager.GetString("dashboard-upcoming-shifts", resourceCulture);
             }
         }
         
@@ -580,6 +670,15 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vehicle management.
+        /// </summary>
+        public static string nav_group_vehicle_management {
+            get {
+                return ResourceManager.GetString("nav-group-vehicle-management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Announcement list.
         /// </summary>
         public static string nav_link_admin_announcement_list {
@@ -589,11 +688,65 @@ namespace DutyAndConductorManager.Web.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shift list.
+        /// </summary>
+        public static string nav_link_admin_brigade_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-brigade-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line list.
+        /// </summary>
+        public static string nav_link_admin_line_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-line-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle manufacturer list.
+        /// </summary>
+        public static string nav_link_admin_manufacturer_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-manufacturer-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle model list.
+        /// </summary>
+        public static string nav_link_admin_model_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-model-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle set list.
+        /// </summary>
+        public static string nav_link_admin_set_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-set-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User list.
         /// </summary>
         public static string nav_link_admin_user_list {
             get {
                 return ResourceManager.GetString("nav-link-admin-user-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vehicle list.
+        /// </summary>
+        public static string nav_link_admin_vehicle_list {
+            get {
+                return ResourceManager.GetString("nav-link-admin-vehicle-list", resourceCulture);
             }
         }
         
@@ -630,6 +783,42 @@ namespace DutyAndConductorManager.Web.Resources {
         public static string page_title_sign_in {
             get {
                 return ResourceManager.GetString("page-title-sign-in", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brigade name.
+        /// </summary>
+        public static string shift_display_brigade_name {
+            get {
+                return ResourceManager.GetString("shift-display-brigade-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string shift_display_from {
+            get {
+                return ResourceManager.GetString("shift-display-from", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line number.
+        /// </summary>
+        public static string shift_display_line_number {
+            get {
+                return ResourceManager.GetString("shift-display-line-number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string shift_display_to {
+            get {
+                return ResourceManager.GetString("shift-display-to", resourceCulture);
             }
         }
         

@@ -15,14 +15,21 @@
             </MudListItem>
             <MudListItem>
                 <strong>Conductors:</strong>
-                <MudList>
-                    @foreach (var conductor in Shift.BrigadeUsers.Where(x => !x.IsManager))
-                    {
-                        <MudListItem>
-                            @conductor.User.ToNameString()
-                        </MudListItem>
-                    }
-                </MudList>
+                @if (Shift.BrigadeUsers.Any())
+                {
+                    <MudList>
+                        @foreach (var conductor in Shift.BrigadeUsers.Where(x => !x.IsManager))
+                        {
+                            <MudListItem>
+                                @conductor.User.ToNameString()
+                            </MudListItem>
+                        }
+                    </MudList>
+                } 
+                else 
+                {
+                    @(" No conductors assigned")
+                }
             </MudListItem>
         </MudList>
     </DialogContent>

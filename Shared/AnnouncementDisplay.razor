@@ -6,16 +6,16 @@
             </CardHeaderAvatar>
             <CardHeaderContent>
                 <MudText Typo="Typo.body1">@FirstName @LastName</MudText>
-                <MudText Typo="Typo.body2">Published on @PublishDate.ToString("yyyy-MM-dd HH:mm")</MudText>
+                <MudText Typo="Typo.body2">@Localizer["announcement-published-on"] @PublishDate.ToString("yyyy-MM-dd HH:mm")</MudText>
             </CardHeaderContent>
             <CardHeaderActions>
                 @switch(Type)
                 {
                     case 1:
-                        <MudChip Color="Color.Info">Info</MudChip>
+                        <MudChip Color="Color.Info">@Localizer["announcement-info"]</MudChip>
                         break;
                     default:
-                        <MudChip Color="Color.Error">Important</MudChip>
+                        <MudChip Color="Color.Error">@Localizer["announcement-important"]</MudChip>
                         break;
                 }
             </CardHeaderActions>

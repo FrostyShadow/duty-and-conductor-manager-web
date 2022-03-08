@@ -2,16 +2,16 @@
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">@Localizer["nav-link-dashboard"]</MudNavLink>
     @if(AuthenticationService.User?.Role.Name == "Admin")
     {
-        <MudNavGroup Title='@Localizer["nav-group-management"]' Icon="@Icons.Material.Filled.Settings">
+        <MudNavGroup Title='@Localizer["nav-group-management"]' Icon="@Icons.Material.Filled.Settings" Expanded="true">
             <MudNavLink Href="/admin/user-list" Icon="@Icons.Material.Filled.People">@Localizer["nav-link-admin-user-list"]</MudNavLink>
-            <MudNavGroup Title="Vehicle management" Icon="@Icons.Material.Filled.DirectionsBus">
-                <MudNavLink Href="/admin/vehicle-list">Vehicles list</MudNavLink>
-                <MudNavLink Href="/admin/model-list">Vehicle models list</MudNavLink>
-                <MudNavLink Href="/admin/manufacturer-list">Vehicle manufacturers list</MudNavLink>
-                <MudNavLink Href="/admin/set-list">Vehicle set list</MudNavLink>
+            <MudNavGroup Title='@Localizer["nav-group-vehicle-management"]' Icon="@Icons.Material.Filled.DirectionsBus" Expanded="true">
+                <MudNavLink Icon="@Icons.Material.Filled.List" Href="/admin/vehicle-list">@Localizer["nav-link-admin-vehicle-list"]</MudNavLink>
+                <MudNavLink Icon="@Icons.Material.Filled.List" Href="/admin/model-list">@Localizer["nav-link-admin-model-list"]</MudNavLink>
+                <MudNavLink Icon="@Icons.Material.Filled.List" Href="/admin/manufacturer-list">@Localizer["nav-link-admin-manufacturer-list"]</MudNavLink>
+                <MudNavLink Icon="@Icons.Material.Filled.List" Href="/admin/set-list">@Localizer["nav-link-admin-set-list"]</MudNavLink>
             </MudNavGroup>
-            <MudNavLink Href="/admin/line-list" Icon="@Icons.Material.Filled.Route">Line list</MudNavLink>
-            <MudNavLink Href="/admin/brigade-list" Icon="@Icons.Material.Filled.Schedule">Brigade list</MudNavLink>
+            <MudNavLink Href="/admin/line-list" Icon="@Icons.Material.Filled.Route">@Localizer["nav-link-admin-line-list"]</MudNavLink>
+            <MudNavLink Href="/admin/brigade-list" Icon="@Icons.Material.Filled.Schedule">@Localizer["nav-link-admin-brigade-list"]</MudNavLink>
             <MudNavLink Href="/admin/announcement-list" Icon="@Icons.Material.Filled.Announcement">@Localizer["nav-link-admin-announcement-list"]</MudNavLink>
         </MudNavGroup>
     }

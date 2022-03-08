@@ -3,7 +3,7 @@
 
 <PageTitle>Vehicle list</PageTitle>
 
-<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true" FixedHeader="true">
+<MudTable Items="@_vehicles" Loading="@_isLoading" LoadingProgressColor="Color.Primary" Elevation="3" Striped="true" Hover="true" Dense="true" FixedHeader="true" Height="70vh">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Vehicle list</MudText>
         <MudSpacer />
@@ -37,9 +37,6 @@
             No vehicles found
         </MudText>
     </NoRecordsContent>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
 </MudTable>
 
 @code
